@@ -3,18 +3,18 @@ import { Request } from 'express';
 import { IAuthResult, JwtFromRequestFunction } from '../../core/types';
 import { ISupabaseBaseAuthStrategyOptions, SupabaseBaseAuthStrategy } from '../base';
 
-export interface ISupabaseJwtAccessAuthStrategyOptions extends ISupabaseBaseAuthStrategyOptions {
+export interface ISupabaseBaseJwtRefreshAuthStrategyOptions extends ISupabaseBaseAuthStrategyOptions {
   extractor: JwtFromRequestFunction;
 }
 
-export class SupabaseJwtAccessAuthStrategy extends SupabaseBaseAuthStrategy {
-  constructor(private readonly options: ISupabaseJwtAccessAuthStrategyOptions) {
+export class SupabaseJwtRefreshAuthStrategy extends SupabaseBaseAuthStrategy {
+  constructor(private readonly options: ISupabaseBaseJwtRefreshAuthStrategyOptions) {
     super(options);
   }
 
   public async authenticate(req: Request): Promise<void> {
     const token = this.extractToken(req);
-    const { data, error } = await this.supabaseClient.auth.getUser(token);
+    const { data, error } = await this.supabaseClient.auth.refreshSession({ refresh_token: token });
     if (error) {
       this.fail(error, error.status);
       return;
@@ -22,7 +22,7 @@ export class SupabaseJwtAccessAuthStrategy extends SupabaseBaseAuthStrategy {
 
     const authResult: IAuthResult = {
       user: data.user,
-      session: null,
+      session: data.session,
     };
 
     this.success(authResult);
