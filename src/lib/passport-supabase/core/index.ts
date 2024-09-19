@@ -1,0 +1,1 @@
+export { IAuthResult } from './types';

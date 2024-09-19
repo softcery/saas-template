@@ -1,2 +1,2 @@
-export * from './strategies/base';
-export * from './strategies/credentials-login';
+export * from './strategies';
+export * from './core';

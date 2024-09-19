@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
 
+import { IAuthResult } from '../../core/types';
 import { ISupabaseBaseAuthStrategyOptions, SupabaseBaseAuthStrategy } from '../base/supabase-base-auth.strategy';
 
 export interface ICredentials {
@@ -35,7 +36,12 @@ export class SupabaseCredentialsLoginAuthStrategy extends SupabaseBaseAuthStrate
       return;
     }
 
-    this.success(data.session);
+    const authResult: IAuthResult = {
+      user: data.user,
+      session: data.session,
+    };
+
+    this.success(authResult);
   }
 
   private extractCredentialsFromRequest(request: unknown) {
