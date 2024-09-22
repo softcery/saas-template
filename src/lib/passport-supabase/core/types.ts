@@ -8,3 +8,8 @@ export interface IAuthResult {
 export interface JwtFromRequestFunction<T = any> {
   (req: T): string | null;
 }
+
+export interface ISupabaseClientOptions {
+  supabaseUrl: string;
+  supabaseKey: string;
+}

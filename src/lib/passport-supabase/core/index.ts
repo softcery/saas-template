@@ -1,1 +1,1 @@
-export { IAuthResult } from './types';
+export { IAuthResult, ISupabaseClientOptions, JwtFromRequestFunction } from './types';
