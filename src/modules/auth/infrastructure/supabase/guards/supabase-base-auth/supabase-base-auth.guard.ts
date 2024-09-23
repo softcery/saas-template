@@ -3,8 +3,7 @@ import { AuthGuard, IAuthGuard } from '@nestjs/passport';
 import { AuthApiError } from '@supabase/supabase-js';
 import { Request } from 'express';
 
-import { User } from '~modules/auth/domain/entities/user.entity';
-
+import { AppException } from 'src/core/exceptions/domain/exceptions/base/app.exception';
 import { CustomException } from 'src/core/exceptions/domain/exceptions/custom-exception/dynamic.exception';
 import { UnexpectedException } from 'src/core/exceptions/domain/exceptions/unexpected-exception/unexpected.exception';
 import { IAuthResult } from 'src/lib/passport-supabase';
@@ -18,6 +17,7 @@ export const SupabaseBaseAuthGuard = (type?: string | string[]): Type<IAuthGuard
     @Inject(SupabaseSessionMapper) private readonly supabaseSessionMapper: SupabaseSessionMapper;
 
     handleRequest<TUser = any>(error: unknown, user: TUser, info: AuthApiError, context: ExecutionContext): TUser {
+      if (error && error instanceof AppException) throw error;
       if (error) throw new UnexpectedException(error);
       if (info) {
         throw CustomException.builder().httpStatus(info.status).message(info.message).code(info.code).build();

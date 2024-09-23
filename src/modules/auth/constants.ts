@@ -1,5 +1,5 @@
 export enum AuthGuardToken {
-  SUPABASE_CREDENTIALS = 'supabase-credentials',
+  EMAIL_PASSWORD = 'email-password',
   JWT_ACCESS = 'jwt-access',
   JWT_REFRESH = 'jwt-refresh',
   GOOGLE_OAUTH2 = 'google-oauth2',

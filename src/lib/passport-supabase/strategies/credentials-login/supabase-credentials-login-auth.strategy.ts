@@ -4,13 +4,23 @@ import { Request } from 'express';
 import { IAuthResult } from '../../core/types';
 import { ISupabaseBaseAuthStrategyOptions, SupabaseBaseAuthStrategy } from '../base/supabase-base-auth.strategy';
 
-export interface ICredentials {
-  phone: string;
+export interface IEmailPasswordCredentials {
   email: string;
   password: string;
 }
 
-export type CredentialsExtractor = (request: unknown) => ICredentials;
+export interface IPhonePasswordCredentials {
+  phone: string;
+  password: string;
+}
+
+export interface ICredentials {
+  email?: string;
+  phone?: string;
+  password: string;
+}
+
+export type CredentialsExtractor = (request: unknown) => ICredentials | Promise<ICredentials>;
 
 export interface ISupabaseCredentialsAuthStrategyOptions extends ISupabaseBaseAuthStrategyOptions {
   extractor?: CredentialsExtractor;
@@ -23,25 +33,29 @@ export class SupabaseCredentialsLoginAuthStrategy extends SupabaseBaseAuthStrate
   }
 
   public async authenticate(req: Request): Promise<void> {
-    const credentials = this.extractCredentialsFromRequest(req);
+    try {
+      const credentials = await this.extractCredentialsFromRequest(req);
 
-    const { data, error } = await this.supabaseClient.auth.signInWithPassword({
-      email: credentials.email,
-      password: credentials.password,
-      phone: credentials.phone,
-    });
+      const { data, error } = await this.supabaseClient.auth.signInWithPassword({
+        email: credentials.email,
+        password: credentials.password,
+        phone: credentials.phone,
+      });
 
-    if (error) {
-      this.fail(error, error.status);
-      return;
+      if (error) {
+        this.fail(error, error.status);
+        return;
+      }
+
+      const authResult: IAuthResult = {
+        user: data.user,
+        session: data.session,
+      };
+
+      this.success(authResult);
+    } catch (error) {
+      this.error(error);
     }
-
-    const authResult: IAuthResult = {
-      user: data.user,
-      session: data.session,
-    };
-
-    this.success(authResult);
   }
 
   private extractCredentialsFromRequest(request: unknown) {

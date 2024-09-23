@@ -6,5 +6,5 @@ import { SupabaseBaseAuthGuard } from '../supabase-base-auth/supabase-base-auth.
 
 @Injectable()
 export class CredentialsLoginAuthGuard
-  extends SupabaseBaseAuthGuard(AuthGuardToken.SUPABASE_CREDENTIALS)
+  extends SupabaseBaseAuthGuard(AuthGuardToken.EMAIL_PASSWORD)
   implements CanActivate {}
