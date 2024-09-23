@@ -5,6 +5,7 @@ declare global {
   declare namespace Express {
     export interface Request {
       session?: Session | null;
+      accessToken?: string;
     }
 
     export interface User extends DomainUser {}

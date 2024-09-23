@@ -4,3 +4,7 @@ export enum AuthGuardToken {
   JWT_REFRESH = 'jwt-refresh',
   GOOGLE_OAUTH2 = 'google-oauth2',
 }
+
+export enum AuthDiToken {
+  AUTH_SERVICE = 'AUTH_SERVICE',
+}

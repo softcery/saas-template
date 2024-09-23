@@ -15,6 +15,7 @@ export class SupabaseJwtAccessAuthStrategy extends SupabaseBaseAuthStrategy {
   public async authenticate(req: Request): Promise<void> {
     const token = this.extractToken(req);
     const { data, error } = await this.supabaseClient.auth.getUser(token);
+
     if (error) {
       this.fail(error, error.status);
       return;
@@ -23,6 +24,7 @@ export class SupabaseJwtAccessAuthStrategy extends SupabaseBaseAuthStrategy {
     const authResult: IAuthResult = {
       user: data.user,
       session: null,
+      accessToken: token,
     };
 
     this.success(authResult);

@@ -10,11 +10,14 @@ import { IAuthResult } from 'src/lib/passport-supabase';
 
 import { SupabaseSessionMapper } from '../../mappers/session/supabase-session.mapper';
 import { SupabaseUserMapper } from '../../mappers/user/supabase-user.mapper';
+import { SupabaseAuthenticatedClientService } from '../../services/supabase-authenticated-client/supabase-authenticated-client.service';
 
 export const SupabaseBaseAuthGuard = (type?: string | string[]): Type<IAuthGuard> => {
   class MixinAuthGuard extends AuthGuard(type) {
     @Inject(SupabaseUserMapper) private readonly supabaseUserMapper: SupabaseUserMapper;
     @Inject(SupabaseSessionMapper) private readonly supabaseSessionMapper: SupabaseSessionMapper;
+    @Inject(SupabaseAuthenticatedClientService)
+    private readonly supabaseAuthenticatedClientService: SupabaseAuthenticatedClientService;
 
     handleRequest<TUser = any>(error: unknown, user: TUser, info: AuthApiError, context: ExecutionContext): TUser {
       if (error && error instanceof AppException) throw error;
@@ -32,6 +35,16 @@ export const SupabaseBaseAuthGuard = (type?: string | string[]): Type<IAuthGuard
 
       request.session = domainSession;
 
+      if (domainSession) {
+        return this.supabaseAuthenticatedClientService
+          .authenticateWithSession(domainSession)
+          .then(() => domainUser) as TUser;
+      }
+      if (request.accessToken) {
+        return this.supabaseAuthenticatedClientService
+          .authenticateWithAccessToken(request.accessToken)
+          .then(() => domainUser) as TUser;
+      }
       return domainUser as TUser;
     }
 
