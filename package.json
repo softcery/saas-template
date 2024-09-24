@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "db:generate": "drizzle-kit generate --config=./config/drizzle.config.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -28,7 +29,10 @@
     "builder-pattern": "^2.2.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "drizzle-orm": "^0.33.0",
     "nest-winston": "^1.9.7",
+    "pg": "^8.13.0",
+    "postgres": "^3.4.4",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "winston": "^3.13.1"
@@ -44,6 +48,7 @@
     "@types/supertest": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "drizzle-kit": "^0.24.2",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
