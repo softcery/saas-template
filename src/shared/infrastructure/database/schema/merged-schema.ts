@@ -1,2 +1,3 @@
-export * from './auth-database-schema';
-export * from './public-database-schema';
+import { authSchema, publicSchema } from '.';
+
+export const mergedSchema = { ...publicSchema, ...authSchema };
