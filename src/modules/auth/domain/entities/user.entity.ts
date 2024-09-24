@@ -43,6 +43,11 @@ export class User {
     return this.isEmailConfirmed || this.isPhoneConfirmed;
   }
 
+  public isPasswordRecoveryWithinTime(passwordRecoverySpanSeconds: number): boolean {
+    if (!this.recoverySentAt) return false;
+    return Math.floor(Date.now() / 1000 - this.recoverySentAt.getTime() / 1000) <= passwordRecoverySpanSeconds;
+  }
+
   public static builder(id: string) {
     return Builder(User, { id });
   }

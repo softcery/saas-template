@@ -5,13 +5,13 @@ import { IAppConfigService } from '~shared/application/services/app-config-servi
 import { UseCase } from '~shared/application/use-case/use-case.interface';
 import { BaseToken } from '~shared/constants';
 
-import { ResetPasswordDto } from '../../dto/reset-password.dto';
+import { SendResetPasswordConfirmationDto } from '../../dto/send-reset-password-confirmation.dto';
 import { IAuthService } from '../../services/auth-service.interface';
 import { ISendResetPasswordConfirmationUseCase } from './send-reset-password-confirmation-use-case.interface';
 
 @Injectable()
 export class SendResetPasswordConfirmationUseCase
-  extends UseCase<ResetPasswordDto>
+  extends UseCase<SendResetPasswordConfirmationDto>
   implements ISendResetPasswordConfirmationUseCase
 {
   constructor(

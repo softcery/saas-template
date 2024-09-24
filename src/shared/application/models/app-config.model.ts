@@ -1,4 +1,4 @@
-import { IsString, IsUrl } from 'class-validator';
+import { IsInt, IsPositive, IsString, IsUrl } from 'class-validator';
 
 export class AppConfigModel {
   @IsString()
@@ -21,4 +21,8 @@ export class AppConfigModel {
 
   @IsString()
   DD_PASSWORD_RESET_REDIRECT_URL: string;
+
+  @IsInt()
+  @IsPositive()
+  DD_PASSWORD_RECOVERY_TIME: number;
 }
