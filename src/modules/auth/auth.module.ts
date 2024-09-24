@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 
+import { ChangeEmailUseCase } from './application/use-cases/change-email/change-email.use-case';
+import { ChangePasswordUseCase } from './application/use-cases/change-password/change-password.use-case';
 import { AuthDiToken } from './constants';
 import { AuthCredentialsMapper } from './domain/mappers/auth-credentials/auth-credentials.mapper';
 import { CredentialsAuthController } from './infrastructure/controllers/credentials-auth/credentials-auth.controller';
@@ -13,6 +15,7 @@ import { SupabaseEmailPasswordLoginAuthStrategy } from './infrastructure/supabas
 import { SupabaseGoogleOAuth2Strategy } from './infrastructure/supabase/strategies/google-oauth2/supabase-google-oauth2.strategy';
 import { SupabaseJwtAccessAuthStrategy } from './infrastructure/supabase/strategies/jwt-access/supabase-jwt-access-auth.strategy';
 import { SupabaseJwtRefreshAuthStrategy } from './infrastructure/supabase/strategies/jwt-refresh/supabase-jwt-refresh-auth.strategy';
+import { CredentialsManagementController } from './infrastructure/controllers/credentials-management/credentials-management.controller';
 
 @Module({
   providers: [
@@ -25,7 +28,9 @@ import { SupabaseJwtRefreshAuthStrategy } from './infrastructure/supabase/strate
     AuthCredentialsMapper,
     SupabaseAuthenticatedClientService,
     { provide: AuthDiToken.AUTH_SERVICE, useClass: SupabaseAuthService },
+    { provide: AuthDiToken.CHANGE_PASSWORD_USE_CASE, useClass: ChangePasswordUseCase },
+    { provide: AuthDiToken.CHANGE_EMAIL_USE_CASE, useClass: ChangeEmailUseCase },
   ],
-  controllers: [CredentialsAuthController, GoogleOauth2Controller, JwtManagementController],
+  controllers: [CredentialsAuthController, GoogleOauth2Controller, JwtManagementController, CredentialsManagementController],
 })
 export class AuthModule {}

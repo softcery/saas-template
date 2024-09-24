@@ -42,4 +42,11 @@ export class SupabaseAuthService implements IAuthService {
   private supabaseErrorToAppException(error: AuthError): AppException {
     return CustomException.builder().message(error.message).code(error.code).httpStatus(error.status).build();
   }
+
+  isPasswordMatching(passwordCandidate: string): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
+  userHasPassword(): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
 }

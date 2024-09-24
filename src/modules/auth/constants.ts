@@ -7,4 +7,6 @@ export enum AuthGuardToken {
 
 export enum AuthDiToken {
   AUTH_SERVICE = 'AUTH_SERVICE',
+  CHANGE_EMAIL_USE_CASE = 'CHANGE_EMAIL_USE_CASE',
+  CHANGE_PASSWORD_USE_CASE = 'CHANGE_PASSWORD_USE_CASE',
 }
