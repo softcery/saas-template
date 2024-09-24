@@ -7,4 +7,5 @@ export interface IAuthService {
   updatePassword(password: string): Promise<void>;
   isPasswordMatching(passwordCandidate: string): Promise<boolean>;
   userHasPassword(): Promise<boolean>;
+  sendResetPasswordEmail(email: string, redirectUrl: string): Promise<void>;
 }

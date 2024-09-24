@@ -18,4 +18,7 @@ export class AppConfigModel {
 
   @IsString()
   GOOGLE_OAUTH_CALLBACK_URL: string;
+
+  @IsString()
+  DD_PASSWORD_RESET_REDIRECT_URL: string;
 }

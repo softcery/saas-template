@@ -9,11 +9,13 @@ import { CustomException } from 'src/core/exceptions/domain/exceptions/custom-ex
 import { SupabaseSessionMapper } from '../../mappers/session/supabase-session.mapper';
 import { SupabaseUserMapper } from '../../mappers/user/supabase-user.mapper';
 import { SupabaseAuthenticatedClientService } from '../supabase-authenticated-client/supabase-authenticated-client.service';
+import { SupabaseClientService } from '../supabase-client/supabase-client.service';
 
 @Injectable({ scope: Scope.REQUEST })
 export class SupabaseAuthService implements IAuthService {
   constructor(
     private readonly supabaseAuthenticatedClientService: SupabaseAuthenticatedClientService,
+    private readonly supabaseClientService: SupabaseClientService,
     private readonly supabaseSessionMapper: SupabaseSessionMapper,
     private readonly supabaseUserMapper: SupabaseUserMapper,
   ) {}
@@ -48,5 +50,12 @@ export class SupabaseAuthService implements IAuthService {
   }
   userHasPassword(): Promise<boolean> {
     throw new Error('Method not implemented.');
+  }
+
+  public async sendResetPasswordEmail(email: string, redirectUrl: string): Promise<void> {
+    const { error } = await this.supabaseClientService.client.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectUrl,
+    });
+    if (error) throw this.supabaseErrorToAppException(error);
   }
 }
