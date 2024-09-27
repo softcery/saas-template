@@ -1,36 +1,49 @@
-// import { Controller, Headers, HttpCode, HttpStatus, Inject, Post, RawBody } from '@nestjs/common';
-// import { EventEmitter2 } from '@nestjs/event-emitter';
-// import { ApiExcludeController } from '@nestjs/swagger';
+import { Controller, Headers, HttpCode, HttpStatus, Inject, Post, RawBody } from '@nestjs/common';
+import { ApiExcludeController } from '@nestjs/swagger';
 
-// import { PublicRoute } from '~modules/auth/application/decorators/public-route/public-route.decorator';
-// import { APP_CONFIG } from '~shared/config/constants';
-// import { IAppConfigService } from '~shared/config/services/config-service/app-config-service.interface';
-// import { UnexpectedException } from '~shared/core/exceptions/domain/unexpected-exception/unexpected.exception';
-// import { STRIPE } from '~shared/stripe/constants';
-// import { IStripeService } from '~shared/stripe/domain/services/stripe/stripe-service.interface';
+import { UnexpectedException } from '~core/exceptions/domain/exceptions/unexpected-exception/unexpected.exception';
+import { IUpdateCustomerSubscriptionUseCase } from '~modules/billing/application/use-cases/update-payment-customer-subscription/update-payment-customer-subscription-use-case.interface';
+import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
+import { BaseToken } from '~shared/constants';
 
-// @ApiExcludeController()
-// @PublicRoute()
-// @Controller('stripe-webhook')
-// export class StripeWebhookController {
-//   constructor(
-//     @Inject(STRIPE) private readonly stripeService: IStripeService,
-//     private readonly eventEmitter: EventEmitter2,
-//     @Inject(APP_CONFIG) private readonly appConfig: IAppConfigService,
-//   ) {}
+import { BillingDiToken } from '../../stripe/constants';
+import { StripeSubscriptionMapper } from '../../stripe/mappers/stripe-subscription/stripe-subscription.mapper';
+import { StripeClientService } from '../../stripe/services/stripe-client-service/stripe-client.service';
 
-//   @Post()
-//   @HttpCode(HttpStatus.OK)
-//   public async handleStripeEvent(@RawBody() body: string, @Headers('stripe-signature') stripeSignature?: string) {
-//     try {
-//       const event = await this.stripeService.stripe.webhooks.constructEventAsync(
-//         body,
-//         stripeSignature,
-//         this.appConfig.getOrThrow('DD_STRIPE_WEBHOOK_SIGNING_SECRET'),
-//       );
-//       await this.eventEmitter.emitAsync(event.type, event);
-//     } catch (error) {
-//       throw new UnexpectedException(error);
-//     }
-//   }
-// }
+@ApiExcludeController()
+@Controller('stripe-webhook')
+export class StripeWebhookController {
+  constructor(
+    private readonly stripeService: StripeClientService,
+    @Inject(BaseToken.APP_CONFIG) private readonly appConfig: IAppConfigService,
+    private readonly stripeSubscriptionMapper: StripeSubscriptionMapper,
+    @Inject(BillingDiToken.UPDATE_PAYMENT_CUSTOMER_SUBSCRIPTION_USE_CASE)
+    private readonly updatePaymentCustomerSubscriptionUseCase: IUpdateCustomerSubscriptionUseCase,
+  ) {}
+
+  @Post()
+  @HttpCode(HttpStatus.OK)
+  public async handleStripeEvent(@RawBody() body: string, @Headers('stripe-signature') stripeSignature?: string) {
+    try {
+      const event = await this.stripeService.stripe.webhooks.constructEventAsync(
+        body,
+        stripeSignature,
+        this.appConfig.getOrThrow('DD_STRIPE_WEBHOOK_SIGNING_SECRET'),
+      );
+      switch (event.type) {
+        case 'customer.subscription.created':
+        case 'customer.subscription.deleted':
+        case 'customer.subscription.updated':
+          const subscriptionModel = this.stripeSubscriptionMapper.toDomain(event.data.object);
+          await this.updatePaymentCustomerSubscriptionUseCase.execute({
+            customerProviderId: event.data.object.customer as string,
+            subscription: subscriptionModel,
+          });
+          break;
+      }
+      // await this.eventEmitter.emitAsync(event.type, event);
+    } catch (error) {
+      throw new UnexpectedException(error);
+    }
+  }
+}

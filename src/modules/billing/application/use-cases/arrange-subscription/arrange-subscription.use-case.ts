@@ -13,7 +13,6 @@ import { SubscriptionActionDto } from '../../dto/subscription-action.dto';
 import { CustomerAlreadyHasSubscriptionException } from '../../exceptions/customer-already-has-subscription.exception';
 import { CustomerForUserDoesNotExistException } from '../../exceptions/customer-for-user-does-not-exist.exception';
 import { IPaymentCustomerRepository } from '../../repositories/payment-customer-repository.interface';
-import { IPaymentCustomerService } from '../../services/payment-customer-service.interface';
 import { ISubscriptionPlanService } from '../../services/subscription-plan-service.interface';
 import { IArrangeSubscriptionPayload, IArrangeSubscriptionUseCase } from './arrange-subscription-use-case.interface';
 
@@ -23,7 +22,6 @@ export class ArrangeSubscriptionUseCase
   implements IArrangeSubscriptionUseCase
 {
   constructor(
-    @Inject(BillingDiToken.CUSTOMER_PROVIDER_SERVICE) private readonly paymentCustomerService: IPaymentCustomerService,
     @Inject(BillingDiToken.SUBSCRIPTION_PLANS_PROVIDER_SERVICE)
     private readonly subscriptionPlanService: ISubscriptionPlanService,
     @Inject(BaseToken.APP_CONFIG) private readonly appConfig: IAppConfigService,
@@ -54,7 +52,7 @@ export class ArrangeSubscriptionUseCase
     }
 
     const subscriptionAction = await this.subscriptionPlanService.createPlanPayment(
-      paymentCustomer.id,
+      paymentCustomer.providerCustomerId,
       arrangeSubscriptionDto.planId,
       paymentPlanOptionsBuilder.build(),
     );

@@ -7,7 +7,6 @@ import { SubscriptionActionDto } from '../../dto/subscription-action.dto';
 import { CustomerForUserDoesNotExistException } from '../../exceptions/customer-for-user-does-not-exist.exception';
 import { CustomerNotSubscribedException } from '../../exceptions/customer-not-subscribed.exception';
 import { IPaymentCustomerRepository } from '../../repositories/payment-customer-repository.interface';
-import { IPaymentCustomerService } from '../../services/payment-customer-service.interface';
 import { ISubscriptionPlanService } from '../../services/subscription-plan-service.interface';
 import { IUpgradeSubscriptionPayload, IUpgradeSubscriptionUseCase } from './upgrade-subscription-use-case.interface';
 
@@ -17,7 +16,6 @@ export class UpgradeSubscriptionUseCase
   implements IUpgradeSubscriptionUseCase
 {
   constructor(
-    @Inject(BillingDiToken.CUSTOMER_PROVIDER_SERVICE) private readonly paymentCustomerService: IPaymentCustomerService,
     @Inject(BillingDiToken.SUBSCRIPTION_PLANS_PROVIDER_SERVICE)
     private readonly subscriptionPlanService: ISubscriptionPlanService,
     @Inject(BillingDiToken.PAYMENT_CUSTOMER_REPOSITORY)
@@ -37,7 +35,7 @@ export class UpgradeSubscriptionUseCase
     if (!paymentCustomer.hasActiveSubscription) throw new CustomerNotSubscribedException();
 
     const subscriptionAction = await this.subscriptionPlanService.createUpdatePlanPaymentAction(
-      paymentCustomer.id,
+      paymentCustomer.providerCustomerId,
       paymentCustomer.subscriptionProviderId,
     );
 

@@ -6,7 +6,7 @@ import { BaseToken } from '~shared/constants';
 
 @Injectable()
 export class StripeClientService {
-  public readonly _stripe: Stripe;
+  private readonly _stripe: Stripe;
   constructor(@Inject(BaseToken.APP_CONFIG) private readonly appConfig: IAppConfigService) {
     this._stripe = new Stripe(this.appConfig.get('STRIPE_API_KEY'));
   }

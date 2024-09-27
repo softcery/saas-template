@@ -8,7 +8,6 @@ import { CustomerForUserDoesNotExistException } from '../../exceptions/customer-
 import { CustomerHasAlreadyCanceledSubscriptionException } from '../../exceptions/customer-has-already-canceled-subscription.exception';
 import { CustomerNotSubscribedException } from '../../exceptions/customer-not-subscribed.exception';
 import { IPaymentCustomerRepository } from '../../repositories/payment-customer-repository.interface';
-import { IPaymentCustomerService } from '../../services/payment-customer-service.interface';
 import { ISubscriptionPlanService } from '../../services/subscription-plan-service.interface';
 import { ICancelSubscriptionPayload, ICancelSubscriptionUseCase } from './cancel-subscription-use-case.interface';
 
@@ -18,7 +17,6 @@ export class CancelSubscriptionUseCase
   implements ICancelSubscriptionUseCase
 {
   constructor(
-    @Inject(BillingDiToken.CUSTOMER_PROVIDER_SERVICE) private readonly paymentCustomerService: IPaymentCustomerService,
     @Inject(BillingDiToken.SUBSCRIPTION_PLANS_PROVIDER_SERVICE)
     private readonly subscriptionPlanService: ISubscriptionPlanService,
     @Inject(BillingDiToken.PAYMENT_CUSTOMER_REPOSITORY)
@@ -39,7 +37,7 @@ export class CancelSubscriptionUseCase
     if (!paymentCustomer.hasActiveSubscription) throw new CustomerNotSubscribedException();
 
     const subscriptionAction = await this.subscriptionPlanService.createCancelPlanAction(
-      paymentCustomer.id,
+      paymentCustomer.providerCustomerId,
       paymentCustomer.subscriptionProviderId,
     );
 

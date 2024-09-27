@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { ArrangeSubscriptionUseCase } from './application/use-cases/arrange-subscription/arrange-subscription.use-case';
 import { CancelSubscriptionUseCase } from './application/use-cases/cancel-subscription/cancel-subscription.use-case';
 import { ListSubscriptionPlansUseCase } from './application/use-cases/list-subscription-plans/list-subscription-plans.use-case';
+import { UpdatePaymentCustomerSubscriptionUseCase } from './application/use-cases/update-payment-customer-subscription/update-payment-customer-subscription.use-case';
 import { UpgradeSubscriptionUseCase } from './application/use-cases/upgrade-subscription/upgrade-subscription.use-case';
 import { DrizzlePaymentCustomerMapper } from './infrastructure/persistence/drizzle/mappers/payment-customer/drizzle-payment-customer.mapper';
 import { DrizzlePaymentCustomerRepository } from './infrastructure/persistence/drizzle/repositories/payment-customer/drizzle-payment-customer.repository';
@@ -30,6 +31,10 @@ import { StripeSubscriptionPlanService } from './infrastructure/stripe/services/
     { provide: BillingDiToken.UPGRADE_SUBSCRIPTION_USE_CASE, useClass: UpgradeSubscriptionUseCase },
     { provide: BillingDiToken.CANCEL_SUBSCRIPTION_USE_CASE, useClass: CancelSubscriptionUseCase },
     { provide: BillingDiToken.LIST_SUBSCRIPTION_PLANS_USE_CASE, useClass: ListSubscriptionPlansUseCase },
+    {
+      provide: BillingDiToken.UPDATE_PAYMENT_CUSTOMER_SUBSCRIPTION_USE_CASE,
+      useClass: UpdatePaymentCustomerSubscriptionUseCase,
+    },
   ],
 })
 export class BillingModule {}

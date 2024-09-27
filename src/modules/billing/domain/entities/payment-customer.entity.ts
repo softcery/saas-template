@@ -2,6 +2,7 @@ import { Subscription, SubscriptionStatus } from '~modules/billing/infrastructur
 
 export class PaymentCustomer {
   public id: string;
+  public providerCustomerId: string;
   public userId: string;
   public name: string;
   public email: string;

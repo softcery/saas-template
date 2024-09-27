@@ -35,4 +35,7 @@ export class AppConfigModel {
   @IsInt()
   @IsPositive()
   DD_TRIAL_PERIOD_DURATION_DAYS: number;
+
+  @IsString()
+  DD_STRIPE_WEBHOOK_SIGNING_SECRET: string;
 }
