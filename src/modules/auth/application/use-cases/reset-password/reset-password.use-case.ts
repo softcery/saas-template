@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { AuthDiToken } from '~modules/auth/constants';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
+import { IDbContext } from '~shared/application/services/db-context.interface';
 import { UseCase } from '~shared/application/use-case/use-case.interface';
 import { BaseToken } from '~shared/constants';
 
@@ -15,13 +16,14 @@ export class ResetPasswordUseCase extends UseCase<IResetPasswordPayload> impleme
   constructor(
     @Inject(AuthDiToken.AUTH_SERVICE) private readonly authService: IAuthService,
     @Inject(BaseToken.APP_CONFIG) private readonly appConfig: IAppConfigService,
+    @Inject(BaseToken.DB_CONTEXT) private readonly dbContext: IDbContext,
   ) {
     super();
   }
 
   protected async implementation(): Promise<void> {
-    const userHasPassword = await this.authService.userHasPassword();
-    if (!userHasPassword) throw new UserHasNoPasswordException();
+    const hashedPassword = await this.dbContext.userRepository.findHashedPassword(this._input.user.id);
+    if (!hashedPassword) throw new UserHasNoPasswordException();
 
     const isPasswordRecoveryTimeInRange = this._input.user.isPasswordRecoveryWithinTime(
       this.appConfig.get('DD_PASSWORD_RECOVERY_TIME'),

@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppConfigModel } from './application/models/app-config.model';
 import { BaseToken } from './constants';
+import { DatabaseModule } from './infrastructure/database/database.module';
 import { validateConfig } from './infrastructure/util/validate-config';
 
 @Global()
@@ -14,6 +15,7 @@ import { validateConfig } from './infrastructure/util/validate-config';
       ignoreEnvFile: false,
       envFilePath: ['./config/.env', './config/.env.local'],
     }),
+    DatabaseModule,
   ],
   providers: [{ provide: BaseToken.APP_CONFIG, useClass: ConfigService }],
   exports: [BaseToken.APP_CONFIG],

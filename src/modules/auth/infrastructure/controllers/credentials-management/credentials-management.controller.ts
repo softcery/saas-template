@@ -11,6 +11,7 @@ import { ISendResetPasswordConfirmationUseCase } from '~modules/auth/application
 import { AuthDiToken } from '~modules/auth/constants';
 import { User } from '~modules/auth/domain/entities/user.entity';
 
+import { UserId } from '../../decorators/user-id/user-id.decorator';
 import { ReqUser } from '../../decorators/user/user.decorator';
 
 @Controller('auth/credentials')
@@ -24,8 +25,8 @@ export class CredentialsManagementController {
   ) {}
 
   @Post('/password')
-  public async changePassword(@Body() dto: UpdateUserPasswordDto) {
-    return this.changePasswordUseCase.execute(dto);
+  public async changePassword(@Body() dto: UpdateUserPasswordDto, @UserId() userId: string) {
+    return this.changePasswordUseCase.execute({ updateDto: dto, userId });
   }
 
   @Post('/email')

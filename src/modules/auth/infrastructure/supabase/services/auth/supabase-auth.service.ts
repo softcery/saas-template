@@ -45,13 +45,6 @@ export class SupabaseAuthService implements IAuthService {
     return CustomException.builder().message(error.message).code(error.code).httpStatus(error.status).build();
   }
 
-  isPasswordMatching(passwordCandidate: string): Promise<boolean> {
-    throw new Error('Method not implemented.');
-  }
-  userHasPassword(): Promise<boolean> {
-    throw new Error('Method not implemented.');
-  }
-
   public async sendResetPasswordEmail(email: string, redirectUrl: string): Promise<void> {
     const { error } = await this.supabaseClientService.client.auth.resetPasswordForEmail(email, {
       redirectTo: redirectUrl,

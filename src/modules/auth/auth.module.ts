@@ -10,6 +10,7 @@ import { CredentialsAuthController } from './infrastructure/controllers/credenti
 import { CredentialsManagementController } from './infrastructure/controllers/credentials-management/credentials-management.controller';
 import { GoogleOauth2Controller } from './infrastructure/controllers/google-oauth2/google-oauth2.controller';
 import { JwtManagementController } from './infrastructure/controllers/jwt-management/jwt-management.controller';
+import { BcryptPasswordService } from './infrastructure/services/password/bcrypt-password.service';
 import { SupabaseSessionMapper } from './infrastructure/supabase/mappers/session/supabase-session.mapper';
 import { SupabaseUserMapper } from './infrastructure/supabase/mappers/user/supabase-user.mapper';
 import { SupabaseAuthService } from './infrastructure/supabase/services/auth/supabase-auth.service';
@@ -36,6 +37,7 @@ import { SupabaseJwtRefreshAuthStrategy } from './infrastructure/supabase/strate
     SupabaseClientService,
     { provide: AuthDiToken.SEND_RESET_PASSWORD_CONFIRMATION_USE_CASE, useClass: SendResetPasswordConfirmationUseCase },
     { provide: AuthDiToken.RESET_PASSWORD_USE_CASE, useClass: ResetPasswordUseCase },
+    { provide: AuthDiToken.PASSWORD_SERVICE, useClass: BcryptPasswordService },
   ],
   controllers: [
     CredentialsAuthController,
