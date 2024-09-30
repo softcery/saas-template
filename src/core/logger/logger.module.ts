@@ -1,10 +1,11 @@
-import { Logger, Module, Scope } from '@nestjs/common';
+import { Global, Logger, Module, Scope } from '@nestjs/common';
 import { INQUIRER } from '@nestjs/core';
 import { WinstonModule, utilities } from 'nest-winston';
 import * as winston from 'winston';
 
 import { CoreToken } from '../constants';
 
+@Global()
 @Module({
   imports: [
     WinstonModule.forRoot({
