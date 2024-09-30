@@ -1,7 +1,25 @@
-import { Subscription, SubscriptionStatus } from '~modules/billing/infrastructure/stripe/models/subscription.model';
+import { plainToInstance } from 'class-transformer';
 
-export class PaymentCustomer {
-  public id: string;
+import { Subscription, SubscriptionStatus } from '~modules/billing/infrastructure/stripe/models/subscription.model';
+import { Entity } from '~shared/domain/entities/entity';
+
+export interface IPaymentCustomerBase {
+  id: string;
+  providerCustomerId: string;
+  userId: string;
+  name: string;
+  email: string;
+  subscriptionProviderId?: string | null;
+  trialStartedAt?: Date;
+  trialCanceledAt?: Date;
+  trialEndsAt?: Date;
+  planStartedAt?: Date;
+  subscriptionCanceledAt?: Date;
+  planEndsAt?: Date;
+  subscriptionStatus?: SubscriptionStatus;
+}
+
+export class PaymentCustomer extends Entity<string> implements IPaymentCustomerBase {
   public providerCustomerId: string;
   public userId: string;
   public name: string;
@@ -40,5 +58,9 @@ export class PaymentCustomer {
     this.planEndsAt = subscription.planEndsAt;
     this.subscriptionCanceledAt = subscription.subscriptionCanceledAt;
     this.subscriptionProviderId = subscription.providerId;
+  }
+
+  public static fromOptions(options: IPaymentCustomerBase) {
+    return plainToInstance(PaymentCustomer, options);
   }
 }

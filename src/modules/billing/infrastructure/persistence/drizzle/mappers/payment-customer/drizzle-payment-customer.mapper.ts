@@ -1,10 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer';
 
-import { PaymentCustomer } from '~modules/billing/domain/entities/payment-customer.entity';
+import { IPaymentCustomerBase, PaymentCustomer } from '~modules/billing/domain/entities/payment-customer.entity';
+import { PaymentCustomerPersistence } from '~shared/infrastructure/database/schema';
 
-@Injectable()
 export class DrizzlePaymentCustomerMapper {
-  toPersistence(entity: PaymentCustomer): any {
-    // TODO - add persistence type
+  public static toPersistence(entity: PaymentCustomer): PaymentCustomerPersistence {
+    return {
+      ...entity,
+    };
+  }
+
+  public static toDomain(persistence: PaymentCustomerPersistence): PaymentCustomer {
+    return plainToInstance(PaymentCustomer, persistence satisfies IPaymentCustomerBase);
   }
 }

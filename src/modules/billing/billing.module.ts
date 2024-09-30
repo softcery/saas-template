@@ -8,7 +8,6 @@ import { UpgradeSubscriptionUseCase } from './application/use-cases/upgrade-subs
 import { StripeWebhookController } from './infrastructure/controllers/stripe-webhook/stripe-webhook.controller';
 import { SubscriptionManagementController } from './infrastructure/controllers/subscription-management/subscription-management.controller';
 import { SubscriptionPlansController } from './infrastructure/controllers/subscription-plans/subscription-plans.controller';
-import { DrizzlePaymentCustomerMapper } from './infrastructure/persistence/drizzle/mappers/payment-customer/drizzle-payment-customer.mapper';
 import { DrizzlePaymentCustomerRepository } from './infrastructure/persistence/drizzle/repositories/payment-customer/drizzle-payment-customer.repository';
 import { BillingDiToken } from './infrastructure/stripe/constants';
 import { StripeCustomerMapper } from './infrastructure/stripe/mappers/stripe-customer/stripe-customer.mapper';
@@ -28,7 +27,6 @@ import { StripeSubscriptionPlanService } from './infrastructure/stripe/services/
     StripeClientService,
     StripePriceMapper,
     { provide: BillingDiToken.PAYMENT_CUSTOMER_REPOSITORY, useClass: DrizzlePaymentCustomerRepository },
-    DrizzlePaymentCustomerMapper,
     { provide: BillingDiToken.CUSTOMER_PROVIDER_SERVICE, useClass: StripeCustomerService },
     { provide: BillingDiToken.SUBSCRIPTION_PLANS_PROVIDER_SERVICE, useClass: StripeSubscriptionPlanService },
     { provide: BillingDiToken.ARRANGE_SUBSCRIPTION_USE_CASE, useClass: ArrangeSubscriptionUseCase },
@@ -40,5 +38,6 @@ import { StripeSubscriptionPlanService } from './infrastructure/stripe/services/
       useClass: UpdatePaymentCustomerSubscriptionUseCase,
     },
   ],
+  exports: [],
 })
 export class BillingModule {}
