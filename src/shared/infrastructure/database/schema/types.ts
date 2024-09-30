@@ -1,3 +1,3 @@
-import { mergedSchema } from './merged-schema';
+import { mergeDbdSchema } from './merged-schema';
 
-export type MergedSchema = typeof mergedSchema;
+export type MergedDbSchema = typeof mergeDbdSchema;

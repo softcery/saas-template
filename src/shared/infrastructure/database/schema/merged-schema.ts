@@ -1,3 +1,3 @@
 import { authSchema, publicSchema } from '.';
 
-export const mergedSchema = { ...publicSchema, ...authSchema };
+export const mergeDbdSchema = { ...publicSchema, ...authSchema };

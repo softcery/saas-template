@@ -1,18 +1,22 @@
 import { Inject, Injectable, Logger, Scope } from '@nestjs/common';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
+import { IUserRepository } from '~modules/auth/application/repositories/user-repository.interface';
+import { DrizzleUserRepository } from '~modules/auth/infrastructure/persistence/drizzle/repositories/drizzle-user.repository';
 import { IDbContext } from '~shared/application/services/db-context.interface';
 
 import { CoreToken } from 'src/core/constants';
 import { POSTGRES_DB } from 'src/lib/drizzle-postgres';
 
-export abstract class IDrizzleRepository<Schema extends Record<string, unknown> = any> {
-  constructor(protected readonly db: NodePgDatabase<Schema>) {}
-}
-
 @Injectable({ scope: Scope.REQUEST })
 export class DrizzleDbContext implements IDbContext {
   private _db: NodePgDatabase<any>;
+
+  private _userRepository: IUserRepository;
+
+  get userRepository() {
+    return this._userRepository;
+  }
 
   constructor(
     @Inject(POSTGRES_DB) db: NodePgDatabase<any>,
@@ -38,5 +42,7 @@ export class DrizzleDbContext implements IDbContext {
     );
   }
 
-  private initRepositories() {}
+  private initRepositories() {
+    this._userRepository = new DrizzleUserRepository(this._db);
+  }
 }

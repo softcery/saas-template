@@ -1,13 +1,14 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
 import { BaseToken } from '~shared/constants';
 
 import { DrizzlePostgresModule } from 'src/lib/drizzle-postgres';
 
-import { mergedSchema } from './schema/merged-schema';
-import { DrizzleDbContext } from './services/drizzle-db-context/drizzle-db-context';
+import { DrizzleDbContext } from './drizzle/db-context/drizzle-db-context';
+import { mergeDbdSchema } from './schema/merged-schema';
 
+@Global()
 @Module({
   imports: [
     DrizzlePostgresModule.registerAsync({
@@ -16,7 +17,7 @@ import { DrizzleDbContext } from './services/drizzle-db-context/drizzle-db-conte
           config: { connectionString: appConfig.get('DB_URL') },
           connection: 'pool',
         },
-        schema: mergedSchema,
+        schema: mergeDbdSchema,
       }),
       inject: [BaseToken.APP_CONFIG],
     }),
