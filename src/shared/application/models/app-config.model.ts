@@ -4,6 +4,9 @@ export class AppConfigModel {
   @IsString()
   TEST: string;
 
+  @IsString()
+  DB_URL: string;
+
   @IsUrl()
   SUPABASE_URL: string;
 
