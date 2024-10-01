@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 
-import { viewerSlice,isValidSessionParams } from '~/entities/viewer'
+import { viewerSlice, isValidSessionParams } from '~/entities/viewer'
 import { useAppDispatch, useHashParams } from '~/shared/lib/hooks'
-
 
 export const useAuthFromHashParams = () => {
   const dispatch = useAppDispatch()

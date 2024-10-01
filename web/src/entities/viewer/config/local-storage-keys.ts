@@ -1,4 +1,4 @@
 export enum ViewerLocalStorageKeys {
-  ACCESS_TOKEN = '@dd-access-token',
-  REFRESH_TOKEN = '@dd-refresh-token',
+  ACCESS_TOKEN = 'access-token',
+  REFRESH_TOKEN = 'refresh-token',
 }
