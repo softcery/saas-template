@@ -4,9 +4,9 @@ interface HashSessionParams {
   token_type: string | 'bearer'
 }
 
-// eslint-disable-next-line
 export const isValidSessionParams = (
-  hashParams: any,
+  // eslint-disable-next-line
+  hashParams: Record<string, any>,
 ): hashParams is HashSessionParams => {
   return Boolean(
     hashParams &&

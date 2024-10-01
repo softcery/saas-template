@@ -1,31 +1,33 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-import { PlanBalance, UserSubscription, ViewerLocalStorageKeys } from '~/entities/viewer'
+import { ViewerLocalStorageKeys } from '~/entities/viewer'
 
-import { Session, User, ViewerInitialState } from '../types'
+import { Session, TokensResult, ViewerInitialState } from '../types'
 
 const initialState: ViewerInitialState = {
   session: undefined,
-  user: undefined,
-  planBalance: undefined,
-  userSubscription: undefined,
+  accessToken: undefined,
+  refreshToken: undefined,
+}
+
+export function parseAccessToken(token: string): Session {
+  return JSON.parse(atob(token.split('.')[1]))
 }
 
 export const slice = createSlice({
   name: 'viewer',
   initialState: getViewerInitialState,
   reducers: {
-    updateViewer(state, { payload: user }: PayloadAction<User>) {
-      state.user = user
-    },
-    updateUserSubscription(state, { payload }: PayloadAction<UserSubscription>) {
-      state.userSubscription = payload
-    },
-    updatePlanBalance(state, { payload }: PayloadAction<PlanBalance>) {
-      state.planBalance = payload
-    },
     updateSession(state, { payload: session }: PayloadAction<Session>) {
       state.session = session
+    },
+
+    setTokens(state, { payload: tokens }: PayloadAction<Partial<TokensResult>>) {
+      const { accessToken, refreshToken } = tokens
+      state.accessToken = accessToken
+      state.refreshToken = refreshToken
+      const hasSession = accessToken && refreshToken
+      state.session = hasSession ? parseAccessToken(accessToken) : undefined
     },
 
     reset() {
@@ -40,14 +42,10 @@ function getViewerInitialState(): ViewerInitialState {
   const hasSession = accessToken && refreshToken
   return {
     ...initialState,
-    session: hasSession ? { accessToken, refreshToken } : undefined,
+    session: hasSession ? parseAccessToken(accessToken) : undefined,
+    accessToken,
+    refreshToken,
   }
 }
 
-export const {
-  updateViewer,
-  reset,
-  updateSession,
-  updateUserSubscription,
-  updatePlanBalance,
-} = slice.actions
+export const { reset, setTokens, updateSession } = slice.actions

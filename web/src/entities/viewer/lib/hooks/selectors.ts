@@ -4,19 +4,16 @@ const useSession = () => {
   return useAppSelector(({ viewer }) => viewer.session)
 }
 
-const useUser = () => {
-  return useAppSelector(({ viewer }) => viewer.user)
+const useAccessToken = () => {
+  return useAppSelector(({ viewer }) => viewer.accessToken)
 }
 
-const useUserSubscription = () => {
-  return useAppSelector(({ viewer }) => viewer.userSubscription)
+const useRefreshToken = () => {
+  return useAppSelector(({ viewer }) => viewer.refreshToken)
 }
-const usePlanBalance = () => {
-  return useAppSelector(({ viewer }) => viewer.planBalance)
-}
+
 export const useViewerSelectors = {
   session: useSession,
-  user: useUser,
-  userSubscription: useUserSubscription,
-  planBalance: usePlanBalance,
+  accessToken: useAccessToken,
+  refreshToken: useRefreshToken,
 }
