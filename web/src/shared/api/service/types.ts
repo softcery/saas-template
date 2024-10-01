@@ -1,4 +1,4 @@
-import { AccessWithRefreshTokenResponseDto as Session } from '@softcery/detectdata-apiclient'
+import { TokensResultDto as Session } from '@shared/api-client'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS'
 

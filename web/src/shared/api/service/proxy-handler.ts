@@ -1,4 +1,4 @@
-import { ApiClient } from '@softcery/detectdata-apiclient'
+import { ApiClient } from '@shared/api-client'
 
 import { ApiError, HandleErrorResponse, ProxyOptions } from './types'
 
@@ -11,7 +11,7 @@ export class ProxyHandler {
     this.handleErrorResponse = handleErrorResponse
   }
   public createProxy(target: unknown): ApiClient {
-    return new Proxy(target, {
+    return new Proxy(target as ApiClient, {
       get: (target: ApiClient, prop: keyof ApiClient) => {
         if ('prop' in target && typeof target[prop] !== 'undefined') {
           return target[prop]
@@ -37,18 +37,21 @@ export class ProxyHandler {
     }
   }
 
-  private createObjectProxy(prop: keyof ApiClient) {
+  private createObjectProxy<T extends keyof ApiClient, S extends keyof ApiClient[T]>(
+    prop: T,
+  ) {
     return new Proxy(this.apiClient[prop], {
-      get: (_, subProp: string | symbol) => {
-        if (typeof this.apiClient[prop][subProp] === 'function') {
+      get: (_, subProp: PropertyKey) => {
+        const selectedPropertyValue = this.apiClient[prop][subProp as S]
+        if (typeof selectedPropertyValue === 'function') {
           return (...args: unknown[]) => {
             return this.handleAsyncCall(
-              this.apiClient[prop][subProp].bind(this.apiClient[prop]),
+              selectedPropertyValue.bind(this.apiClient[prop]),
               ...args,
             )
           }
         }
-        return this.apiClient[prop][subProp]
+        return selectedPropertyValue
       },
     })
   }

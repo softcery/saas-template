@@ -1,4 +1,4 @@
-import type { AccessWithRefreshTokenResponseDto } from '@softcery/detectdata-apiclient'
+import type { TokensResultDto } from '@shared/api-client'
 
 import { Api, ApiManager } from './api-manager'
 import { UNAUTHORIZED_ERROR } from '../config'
@@ -6,8 +6,7 @@ import { ApiError, AuthenticationErrorCallback, TokenRefreshedCallback } from '.
 
 class ApiWithRefreshManager implements Api {
   private apiManager = new ApiManager()
-  private refreshingToken: Promise<AccessWithRefreshTokenResponseDto | undefined> | null =
-    null
+  private refreshingToken: Promise<TokensResultDto | undefined> | null = null
   private refreshToken?: string
   private authenticationErrorCallback?: AuthenticationErrorCallback
   private tokenRefreshedCallback?: TokenRefreshedCallback
@@ -58,7 +57,7 @@ class ApiWithRefreshManager implements Api {
   }
 
   private getDebouncedRefreshedSession = async (): Promise<
-    AccessWithRefreshTokenResponseDto | undefined
+    TokensResultDto | undefined
   > => {
     if (this.refreshingToken) return this.refreshingToken
 
@@ -83,9 +82,9 @@ class ApiWithRefreshManager implements Api {
 
   private refreshSession = async (
     refreshToken: string,
-  ): Promise<AccessWithRefreshTokenResponseDto | undefined> => {
+  ): Promise<TokensResultDto | undefined> => {
     try {
-      return await this.generateConfiguration().auth.refreshSession({
+      return await this.generateConfiguration().auth.refresh({
         requestBody: { refreshToken },
       })
     } catch (error) {
