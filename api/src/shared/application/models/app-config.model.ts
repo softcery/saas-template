@@ -41,4 +41,7 @@ export class AppConfigModel {
 
   @IsString()
   DD_STRIPE_WEBHOOK_SIGNING_SECRET: string;
+
+  @IsString()
+  DD_CLIENT_AUTH_REDIRECT_URL: string;
 }
