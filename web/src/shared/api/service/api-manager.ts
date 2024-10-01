@@ -1,4 +1,4 @@
-import { ApiClient } from '@softcery/detectdata-apiclient'
+import { ApiClient } from '@shared/api-client'
 
 import { ProxyHandler } from './proxy-handler'
 import { ProxyOptions } from './types'
