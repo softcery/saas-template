@@ -6,13 +6,13 @@ import {
   TrialOptions,
 } from '~modules/billing/infrastructure/stripe/models/payment-plan-options.model';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
+import { IDbContext } from '~shared/application/services/db-context.interface';
 import { UseCase } from '~shared/application/use-case/use-case.interface';
 import { BaseToken } from '~shared/constants';
 
 import { SubscriptionActionDto } from '../../dto/subscription-action.dto';
 import { CustomerAlreadyHasSubscriptionException } from '../../exceptions/customer-already-has-subscription.exception';
 import { CustomerForUserDoesNotExistException } from '../../exceptions/customer-for-user-does-not-exist.exception';
-import { IPaymentCustomerRepository } from '../../repositories/payment-customer-repository.interface';
 import { ISubscriptionPlanService } from '../../services/subscription-plan-service.interface';
 import { IArrangeSubscriptionPayload, IArrangeSubscriptionUseCase } from './arrange-subscription-use-case.interface';
 
@@ -25,8 +25,7 @@ export class ArrangeSubscriptionUseCase
     @Inject(BillingDiToken.SUBSCRIPTION_PLANS_PROVIDER_SERVICE)
     private readonly subscriptionPlanService: ISubscriptionPlanService,
     @Inject(BaseToken.APP_CONFIG) private readonly appConfig: IAppConfigService,
-    @Inject(BillingDiToken.PAYMENT_CUSTOMER_REPOSITORY)
-    private readonly paymentCustomerRepository: IPaymentCustomerRepository,
+    @Inject(BaseToken.DB_CONTEXT) private readonly dbContext: IDbContext,
   ) {
     super();
   }
@@ -34,7 +33,7 @@ export class ArrangeSubscriptionUseCase
   public async implementation(): Promise<SubscriptionActionDto> {
     const { userId, arrangeSubscriptionDto } = this._input;
 
-    const paymentCustomer = await this.paymentCustomerRepository.findByUserId(userId);
+    const paymentCustomer = await this.dbContext.paymentCustomerRepository.findByUserId(userId);
     if (!paymentCustomer) {
       throw new CustomerForUserDoesNotExistException(userId);
     }

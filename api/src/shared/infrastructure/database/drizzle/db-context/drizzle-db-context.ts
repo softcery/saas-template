@@ -3,6 +3,8 @@ import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
 import { IUserRepository } from '~modules/auth/application/repositories/user-repository.interface';
 import { DrizzleUserRepository } from '~modules/auth/infrastructure/persistence/drizzle/repositories/drizzle-user.repository';
+import { IPaymentCustomerRepository } from '~modules/billing/application/repositories/payment-customer-repository.interface';
+import { DrizzlePaymentCustomerRepository } from '~modules/billing/infrastructure/persistence/drizzle/repositories/payment-customer/drizzle-payment-customer.repository';
 import { IDbContext } from '~shared/application/services/db-context.interface';
 
 import { CoreToken } from 'src/core/constants';
@@ -13,9 +15,14 @@ export class DrizzleDbContext implements IDbContext {
   private _db: NodePgDatabase<any>;
 
   private _userRepository: IUserRepository;
+  private _paymentCustomerRepository: IPaymentCustomerRepository;
 
   get userRepository() {
     return this._userRepository;
+  }
+
+  get paymentCustomerRepository() {
+    return this._paymentCustomerRepository;
   }
 
   constructor(
@@ -44,5 +51,6 @@ export class DrizzleDbContext implements IDbContext {
 
   private initRepositories() {
     this._userRepository = new DrizzleUserRepository(this._db);
+    this._paymentCustomerRepository = new DrizzlePaymentCustomerRepository(this._db);
   }
 }

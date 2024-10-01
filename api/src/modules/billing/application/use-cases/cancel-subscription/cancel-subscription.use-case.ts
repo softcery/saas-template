@@ -1,13 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { BillingDiToken } from '~modules/billing/infrastructure/stripe/constants';
+import { IDbContext } from '~shared/application/services/db-context.interface';
 import { UseCase } from '~shared/application/use-case/use-case.interface';
+import { BaseToken } from '~shared/constants';
 
 import { SubscriptionActionDto } from '../../dto/subscription-action.dto';
 import { CustomerForUserDoesNotExistException } from '../../exceptions/customer-for-user-does-not-exist.exception';
 import { CustomerHasAlreadyCanceledSubscriptionException } from '../../exceptions/customer-has-already-canceled-subscription.exception';
 import { CustomerNotSubscribedException } from '../../exceptions/customer-not-subscribed.exception';
-import { IPaymentCustomerRepository } from '../../repositories/payment-customer-repository.interface';
 import { ISubscriptionPlanService } from '../../services/subscription-plan-service.interface';
 import { ICancelSubscriptionPayload, ICancelSubscriptionUseCase } from './cancel-subscription-use-case.interface';
 
@@ -19,8 +20,7 @@ export class CancelSubscriptionUseCase
   constructor(
     @Inject(BillingDiToken.SUBSCRIPTION_PLANS_PROVIDER_SERVICE)
     private readonly subscriptionPlanService: ISubscriptionPlanService,
-    @Inject(BillingDiToken.PAYMENT_CUSTOMER_REPOSITORY)
-    private readonly paymentCustomerRepository: IPaymentCustomerRepository,
+    @Inject(BaseToken.DB_CONTEXT) private readonly dbContext: IDbContext,
   ) {
     super();
   }
@@ -28,7 +28,8 @@ export class CancelSubscriptionUseCase
   public async implementation(): Promise<SubscriptionActionDto> {
     const { userId } = this._input;
 
-    const paymentCustomer = await this.paymentCustomerRepository.findByUserId(userId);
+    const paymentCustomer = await this.dbContext.paymentCustomerRepository.findByUserId(userId);
+
     if (!paymentCustomer) {
       throw new CustomerForUserDoesNotExistException(userId);
     }

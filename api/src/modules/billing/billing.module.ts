@@ -5,10 +5,10 @@ import { CancelSubscriptionUseCase } from './application/use-cases/cancel-subscr
 import { ListSubscriptionPlansUseCase } from './application/use-cases/list-subscription-plans/list-subscription-plans.use-case';
 import { UpdatePaymentCustomerSubscriptionUseCase } from './application/use-cases/update-payment-customer-subscription/update-payment-customer-subscription.use-case';
 import { UpgradeSubscriptionUseCase } from './application/use-cases/upgrade-subscription/upgrade-subscription.use-case';
+import { SubscriptionPlansMapper } from './domain/mappers/subscription-plan/subscription-plans.mapper';
 import { StripeWebhookController } from './infrastructure/controllers/stripe-webhook/stripe-webhook.controller';
 import { SubscriptionManagementController } from './infrastructure/controllers/subscription-management/subscription-management.controller';
 import { SubscriptionPlansController } from './infrastructure/controllers/subscription-plans/subscription-plans.controller';
-import { DrizzlePaymentCustomerRepository } from './infrastructure/persistence/drizzle/repositories/payment-customer/drizzle-payment-customer.repository';
 import { BillingDiToken } from './infrastructure/stripe/constants';
 import { StripeCustomerMapper } from './infrastructure/stripe/mappers/stripe-customer/stripe-customer.mapper';
 import { StripePriceMapper } from './infrastructure/stripe/mappers/stripe-price/stripe-price.mapper';
@@ -23,10 +23,10 @@ import { StripeSubscriptionPlanService } from './infrastructure/stripe/services/
   providers: [
     StripeCustomerMapper,
     StripeSubscriptionMapper,
+    SubscriptionPlansMapper,
     StripeProductMapper,
     StripeClientService,
     StripePriceMapper,
-    { provide: BillingDiToken.PAYMENT_CUSTOMER_REPOSITORY, useClass: DrizzlePaymentCustomerRepository },
     { provide: BillingDiToken.CUSTOMER_PROVIDER_SERVICE, useClass: StripeCustomerService },
     { provide: BillingDiToken.SUBSCRIPTION_PLANS_PROVIDER_SERVICE, useClass: StripeSubscriptionPlanService },
     { provide: BillingDiToken.ARRANGE_SUBSCRIPTION_USE_CASE, useClass: ArrangeSubscriptionUseCase },

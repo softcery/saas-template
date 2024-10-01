@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
@@ -15,7 +14,6 @@ import { DrizzlePaymentCustomerMapper } from '../../mappers/payment-customer/dri
 
 const tableDefinition = TableDefinition.create(paymentCustomer, 'id');
 
-@Injectable()
 export class DrizzlePaymentCustomerRepository
   extends DrizzleRepository<PaymentCustomer, typeof tableDefinition, PaymentCustomerPersistence>
   implements IPaymentCustomerRepository
