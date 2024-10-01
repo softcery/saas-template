@@ -36,7 +36,7 @@ export class Application {
   }
 
   private async initSwaggerDoc() {
-    const config = new DocumentBuilder().setTitle('Detect Data API').setVersion('1.0').build();
+    const config = new DocumentBuilder().setTitle('SaaS template API').setVersion('1.0').build();
     const document = SwaggerModule.createDocument(this.app, config);
     SwaggerModule.setup('api-docs', this.app, document);
 
