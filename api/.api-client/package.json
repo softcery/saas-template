@@ -1,0 +1,8 @@
+{
+  "name": "api-client",
+  "version": "0.0.0",
+  "description": "Client for API",
+  "main": "index.ts",
+  "author": "",
+  "license": "UNLICENSED"
+}
