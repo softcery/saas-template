@@ -1,0 +1,1 @@
+export const UNAUTHORIZED_ERROR = 401

@@ -1,0 +1,8 @@
+.count {
+    border-radius: 4px;
+    background: #FFFFFF33;
+}
+
+.buttonSection:where([data-position='left']) {
+    margin-inline-end: 8px !important;
+}

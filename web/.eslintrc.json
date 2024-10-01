@@ -1,0 +1,61 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "react-hooks", "import"],
+  "extends": [
+    // react
+    "plugin:react/recommended",
+
+    // typescript
+    "plugin:@typescript-eslint/recommended",
+
+    // feature-sliced rules
+    "@feature-sliced",
+    "@feature-sliced/eslint-config/rules/import-order"
+  ],
+  "rules": {
+    // typescript
+    "no-unused-vars": "off", // need to disable the base rule before typescript-eslint/no-unused-vars as it can report incorrect errors
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { "fixStyle": "inline-type-imports" }
+    ],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+
+    // react
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "react/no-unescaped-entities": "off",
+    "react/react-in-jsx-scope": "off",
+
+    // other
+    "dot-notation": "warn",
+    "valid-typeof": "warn",
+    "import/no-internal-modules": [
+      "warn",
+      {
+        "forbid": ["shared/styles/*"]
+      }
+    ]
+  },
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  }
+}
