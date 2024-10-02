@@ -5,13 +5,10 @@ import { UserCreatedEvent } from '~modules/auth/domain/events/user-created.event
 import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 
 import { IAuthService } from '../../services/auth-service.interface';
-import { IPerformPostOauthPayload, IPerformPostOauthUseCase } from './perform-post-oauth-use-case';
+import { IPerformPostAuthPayload, IPerformPostAuthUseCase } from './perform-post-auth-use-case';
 
 @Injectable()
-export class PerformPostOAuthUseCase
-  extends UseCase<IPerformPostOauthPayload, void>
-  implements IPerformPostOauthUseCase
-{
+export class PerformPostAuthUseCase extends UseCase<IPerformPostAuthPayload, void> implements IPerformPostAuthUseCase {
   constructor(@Inject(AuthDiToken.AUTH_SERVICE) private readonly authService: IAuthService) {
     super();
   }
