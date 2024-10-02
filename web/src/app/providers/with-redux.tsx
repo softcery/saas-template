@@ -8,6 +8,7 @@ import { signInWithEmailPasswordApi } from '~/features/auth/sign-in-with-email-p
 import { signUpWithEmailPasswordApi } from '~/features/auth/sign-up-with-email-password'
 import { changeEmailApi } from '~/features/auth/update-email'
 import { updatePasswordApi } from '~/features/auth/update-password'
+import { getProductsApi } from '~/features/billing/get-products'
 
 export const withRedux = (Component: React.ComponentType) => () => {
   return (
@@ -22,12 +23,20 @@ const store = configureStore({
     viewer: viewerSlice.reducer,
     [signInWithEmailPasswordApi.reducerPath]: signInWithEmailPasswordApi.reducer,
     [signUpWithEmailPasswordApi.reducerPath]: signUpWithEmailPasswordApi.reducer,
-    [changeEmailApi.reducerPath]: signInWithEmailPasswordApi.reducer,
+    [changeEmailApi.reducerPath]: changeEmailApi.reducer,
     [updatePasswordApi.reducerPath]: updatePasswordApi.reducer,
-    [sendPasswordResetConfirmationApi.reducerPath]: changeEmailApi.reducer,
+    [sendPasswordResetConfirmationApi.reducerPath]:
+      sendPasswordResetConfirmationApi.reducer,
+    [getProductsApi.reducerPath]: getProductsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(signInWithEmailPasswordApi.middleware),
+    getDefaultMiddleware()
+      .concat(signInWithEmailPasswordApi.middleware)
+      .concat(signUpWithEmailPasswordApi.middleware)
+      .concat(changeEmailApi.middleware)
+      .concat(updatePasswordApi.middleware)
+      .concat(sendPasswordResetConfirmationApi.middleware)
+      .concat(getProductsApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

@@ -1,0 +1,1 @@
+export { getProductsApi } from './slice'
