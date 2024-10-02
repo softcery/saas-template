@@ -1,8 +1,6 @@
 import { Subject } from 'rxjs';
 
-import { IMessageSource } from '~shared/application/events/event-subscriber.interface';
-
-import { IEvent, IEventPublisher } from './interfaces';
+import { IEvent, IEventPublisher, IMessageSource } from './interfaces';
 
 export class DefaultPubSub<TEvent extends IEvent> implements IEventPublisher<TEvent>, IMessageSource<TEvent> {
   private subject$: Subject<TEvent>;

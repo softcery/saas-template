@@ -1,4 +1,4 @@
-import { UseCase } from '~shared/application/use-cases/use-case.interface';
+import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 
 import { SubscriptionPlanListDto } from '../../dto/subscription-plan-list.dto';
 

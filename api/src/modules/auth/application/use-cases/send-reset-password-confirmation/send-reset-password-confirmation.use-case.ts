@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { AuthDiToken } from '~modules/auth/constants';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
-import { UseCase } from '~shared/application/use-cases/use-case.interface';
+import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
 
 import { SendResetPasswordConfirmationDto } from '../../dto/send-reset-password-confirmation.dto';

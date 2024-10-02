@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { AuthDiToken } from '~modules/auth/constants';
 import { IDbContext } from '~shared/application/services/db-context.interface';
-import { UseCase } from '~shared/application/use-cases/use-case.interface';
+import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
 
 import { PasswordsNotMatchException } from '../../exceptions/passwords-not-match.exception';

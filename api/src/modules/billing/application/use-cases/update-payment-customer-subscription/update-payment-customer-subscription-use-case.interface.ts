@@ -1,6 +1,6 @@
 import { PaymentCustomer } from '~modules/billing/domain/entities/payment-customer.entity';
 import { Subscription } from '~modules/billing/infrastructure/stripe/models/subscription.model';
-import { UseCase } from '~shared/application/use-cases/use-case.interface';
+import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 
 export interface IUpdatePaymentCustomerSubscriptionPayload {
   customerProviderId: string;
