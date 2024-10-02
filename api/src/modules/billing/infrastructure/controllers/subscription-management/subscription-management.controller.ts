@@ -9,7 +9,7 @@ import { IUpgradeSubscriptionUseCase } from '~modules/billing/application/use-ca
 
 import { BillingDiToken } from '../../stripe/constants';
 
-@ApiTags('Subscription plans')
+@ApiTags('billing')
 @Controller('subscription/management')
 export class SubscriptionManagementController {
   constructor(
