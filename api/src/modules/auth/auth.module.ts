@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 
 import { ChangeEmailUseCase } from './application/use-cases/change-email/change-email.use-case';
 import { ChangePasswordUseCase } from './application/use-cases/change-password/change-password.use-case';
-import { PerformPostOAuthUseCase } from './application/use-cases/perform-post-oauth/perform-post-oauth.use-case';
+import { PerformPostAuthUseCase } from './application/use-cases/perform-post-auth/perform-post-auth.use-case';
 import { ResetPasswordUseCase } from './application/use-cases/reset-password/reset-password.use-case';
 import { SendResetPasswordConfirmationUseCase } from './application/use-cases/send-reset-password-confirmation/send-reset-password-confirmation.use-case';
 import { SignUpByEmailPasswordUseCase } from './application/use-cases/sign-up-by-email-password/sign-up-by-email-password.use-case';
@@ -13,6 +14,7 @@ import { CredentialsManagementController } from './infrastructure/controllers/cr
 import { GoogleOauth2Controller } from './infrastructure/controllers/google-oauth2/google-oauth2.controller';
 import { JwtManagementController } from './infrastructure/controllers/jwt-management/jwt-management.controller';
 import { BcryptPasswordService } from './infrastructure/services/password/bcrypt-password.service';
+import { JwtAccessAuthGuard } from './infrastructure/supabase/guards/jwt-access-auth/jwt-access-auth.guard';
 import { SupabaseSessionMapper } from './infrastructure/supabase/mappers/session/supabase-session.mapper';
 import { SupabaseUserMapper } from './infrastructure/supabase/mappers/user/supabase-user.mapper';
 import { SupabaseAuthService } from './infrastructure/supabase/services/auth/supabase-auth.service';
@@ -41,7 +43,8 @@ import { SupabaseJwtRefreshAuthStrategy } from './infrastructure/supabase/strate
     { provide: AuthDiToken.RESET_PASSWORD_USE_CASE, useClass: ResetPasswordUseCase },
     { provide: AuthDiToken.PASSWORD_SERVICE, useClass: BcryptPasswordService },
     { provide: AuthDiToken.SIGN_UP_BY_EMAIL_PASSWORD, useClass: SignUpByEmailPasswordUseCase },
-    { provide: AuthDiToken.PERFORM_POST_OAUTH_USE_CASE, useClass: PerformPostOAuthUseCase },
+    { provide: AuthDiToken.PERFORM_POST_AUTH_USE_CASE, useClass: PerformPostAuthUseCase },
+    { provide: APP_GUARD, useClass: JwtAccessAuthGuard },
   ],
   controllers: [
     CredentialsAuthController,

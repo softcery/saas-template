@@ -9,7 +9,7 @@ export class EventEmitterEventSource implements IMessageSource {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
   bridgeEventsTo(subject: Subject<IEvent<object, any>>): void {
-    this.eventEmitter.on('*', (event) => {
+    this.eventEmitter.on('**', (event) => {
       subject.next(event);
     });
   }

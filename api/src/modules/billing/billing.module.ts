@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 
+import { UserEventHandler } from './application/handlers/user/user.event-handler';
 import { ArrangeSubscriptionUseCase } from './application/use-cases/arrange-subscription/arrange-subscription.use-case';
 import { CancelSubscriptionUseCase } from './application/use-cases/cancel-subscription/cancel-subscription.use-case';
 import { ListSubscriptionPlansUseCase } from './application/use-cases/list-subscription-plans/list-subscription-plans.use-case';
@@ -27,6 +28,7 @@ import { StripeSubscriptionPlanService } from './infrastructure/stripe/services/
     StripeProductMapper,
     StripeClientService,
     StripePriceMapper,
+    UserEventHandler,
     { provide: BillingDiToken.CUSTOMER_PROVIDER_SERVICE, useClass: StripeCustomerService },
     { provide: BillingDiToken.SUBSCRIPTION_PLANS_PROVIDER_SERVICE, useClass: StripeSubscriptionPlanService },
     { provide: BillingDiToken.ARRANGE_SUBSCRIPTION_USE_CASE, useClass: ArrangeSubscriptionUseCase },

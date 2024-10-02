@@ -1,13 +1,13 @@
-import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 import { SubscriptionStatus } from '~modules/billing/infrastructure/stripe/models/subscription.model';
 
-export const paymentCustomer = pgTable('payment_customer', {
-  id: text('id').primaryKey(),
+export const paymentCustomer = pgTable('payment_customers', {
+  id: uuid('id').primaryKey().defaultRandom(),
   providerCustomerId: text('provider_customer_id').notNull(),
   userId: text('user_id').notNull(),
-  name: text('name').notNull(),
-  email: text('email').notNull(),
+  name: text('name'),
+  email: text('email'),
   subscriptionProviderId: text('subscription_provider_id'),
   trialStartedAt: timestamp('trial_started_at'),
   trialCanceledAt: timestamp('trial_canceled_at'),

@@ -31,9 +31,7 @@ export class SupabaseAuthService implements IAuthService {
     });
 
     if (error) throw this.supabaseErrorToAppException(error);
-    await this.supabaseAuthenticatedClientService.authenticateWithSession(
-      this.supabaseSessionMapper.toDomain(data.session),
-    );
+
     return this.supabaseUserMapper.toDomain(data.user);
   }
 
