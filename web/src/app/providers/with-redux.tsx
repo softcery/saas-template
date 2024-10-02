@@ -8,7 +8,10 @@ import { signInWithEmailPasswordApi } from '~/features/auth/sign-in-with-email-p
 import { signUpWithEmailPasswordApi } from '~/features/auth/sign-up-with-email-password'
 import { changeEmailApi } from '~/features/auth/update-email'
 import { updatePasswordApi } from '~/features/auth/update-password'
+import { cancelSubscriptionApi } from '~/features/billing/cancel-subscription'
 import { getProductsApi } from '~/features/billing/get-products'
+import { openPaymentApi } from '~/features/billing/open-payment'
+import { upgradeSubscriptionApi } from '~/features/billing/upgrade-subscription'
 
 export const withRedux = (Component: React.ComponentType) => () => {
   return (
@@ -28,6 +31,9 @@ const store = configureStore({
     [sendPasswordResetConfirmationApi.reducerPath]:
       sendPasswordResetConfirmationApi.reducer,
     [getProductsApi.reducerPath]: getProductsApi.reducer,
+    [cancelSubscriptionApi.reducerPath]: cancelSubscriptionApi.reducer,
+    [openPaymentApi.reducerPath]: openPaymentApi.reducer,
+    [upgradeSubscriptionApi.reducerPath]: upgradeSubscriptionApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -36,7 +42,10 @@ const store = configureStore({
       .concat(changeEmailApi.middleware)
       .concat(updatePasswordApi.middleware)
       .concat(sendPasswordResetConfirmationApi.middleware)
-      .concat(getProductsApi.middleware),
+      .concat(getProductsApi.middleware)
+      .concat(openPaymentApi.middleware)
+      .concat(cancelSubscriptionApi.middleware)
+      .concat(upgradeSubscriptionApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>
