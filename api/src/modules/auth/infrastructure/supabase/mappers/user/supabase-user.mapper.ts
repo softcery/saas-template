@@ -20,9 +20,9 @@ export class SupabaseUserMapper {
       .confirmedAt(supabaseUser.confirmed_at)
       .emailConfirmedAt(supabaseUser.email_confirmed_at ? new Date(supabaseUser.email_confirmed_at) : undefined)
       .phoneConfirmedAt(supabaseUser.phone_confirmed_at ? new Date(supabaseUser.phone_confirmed_at) : undefined)
-      .lastSignInAt(supabaseUser.last_sign_in_at)
+      .lastSignInAt(supabaseUser.last_sign_in_at ? new Date(supabaseUser.last_sign_in_at) : undefined)
       .role(supabaseUser.role)
-      .updatedAt(supabaseUser.updated_at)
+      .updatedAt(supabaseUser.updated_at ? new Date(supabaseUser.updated_at) : undefined)
       .build();
   }
 }
