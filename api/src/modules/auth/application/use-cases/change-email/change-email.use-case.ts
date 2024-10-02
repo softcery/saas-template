@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { AuthDiToken } from '~modules/auth/constants';
-import { UseCase } from '~shared/application/use-case/use-case.interface';
+import { UseCase } from '~shared/application/use-cases/use-case.interface';
 
 import { UpdateUserEmailDto } from '../../dto/update-user-email.dto';
 import { IAuthService } from '../../services/auth-service.interface';

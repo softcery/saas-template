@@ -1,3 +1,3 @@
-export enum EventType {
+export enum DomainEventType {
   TEST = 'TEST',
 }

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { BillingDiToken } from '~modules/billing/infrastructure/stripe/constants';
 import { IDbContext } from '~shared/application/services/db-context.interface';
-import { UseCase } from '~shared/application/use-case/use-case.interface';
+import { UseCase } from '~shared/application/use-cases/use-case.interface';
 import { BaseToken } from '~shared/constants';
 
 import { SubscriptionActionDto } from '../../dto/subscription-action.dto';
