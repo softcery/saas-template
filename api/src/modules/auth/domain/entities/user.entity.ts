@@ -2,7 +2,7 @@ import { Builder } from 'builder-pattern';
 
 export class User {
   public readonly id: string;
-  public readonly createdAt?: Date = new Date();
+  public readonly createdAt?: Date;
   public readonly confirmationSentAt?: Date;
   public readonly recoverySentAt?: Date;
   public readonly emailChangeSentAt?: Date;
@@ -15,9 +15,10 @@ export class User {
   public readonly confirmedAt?: string;
   public readonly emailConfirmedAt?: Date;
   public readonly phoneConfirmedAt?: Date;
-  public readonly lastSignInAt?: string;
+  public readonly lastSignInAt?: Date;
   public readonly role?: string;
-  public readonly updatedAt?: string;
+  public readonly updatedAt?: Date;
+  public readonly signUpCompleted: boolean = false;
 
   public get isEmailConfirmed(): boolean {
     return !!this.emailConfirmedAt;
@@ -29,10 +30,6 @@ export class User {
 
   public get isInvited(): boolean {
     return !!this.invitedAt;
-  }
-
-  public get lastSignIn(): string | null {
-    return this.lastSignInAt ? new Date(this.lastSignInAt).toLocaleString() : null;
   }
 
   public get contactInfo(): string | null {

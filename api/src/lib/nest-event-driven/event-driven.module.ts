@@ -12,7 +12,6 @@ export class EventDrivenModule implements OnApplicationBootstrap {
 
   onApplicationBootstrap() {
     const { events } = this.explorerService.explore();
-    console.log('registered');
 
     this.eventBus.register(events);
   }

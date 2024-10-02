@@ -1,7 +1,6 @@
-import { IMessageSource } from '~shared/application/events/event-subscriber.interface';
 import { IEventIntegrationService } from '~shared/application/services/event-integration-service.interface';
 
-import { IEvent, IEventBus, IEventPublisher } from 'src/lib/nest-event-driven';
+import { IEvent, IEventBus, IEventPublisher, IMessageSource } from 'src/lib/nest-event-driven';
 
 export abstract class EventBusBaseService implements IEventIntegrationService {
   constructor(
@@ -13,7 +12,6 @@ export abstract class EventBusBaseService implements IEventIntegrationService {
   }
 
   publishEvent(event: IEvent): void {
-    console.log('publishEvent', event);
     this.publisher.publish(event);
   }
 

@@ -12,7 +12,6 @@ export class HandlerRegister<T, TypeT extends Type<T> = Type<T>> {
 
   registerHandler(handler: TypeT): boolean {
     const target = this.reflectCommandName(handler);
-    console.log(target);
 
     if (!target) {
       return false;

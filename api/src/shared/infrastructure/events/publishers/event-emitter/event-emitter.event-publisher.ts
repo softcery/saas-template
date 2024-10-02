@@ -8,8 +8,6 @@ export class EventEmitterEventPublisher implements IEventPublisher {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
   publish<E extends IEvent<object, any>>(event: E): void {
-    console.log('EventEmitterEventPublisher.publish', event);
-
     this.eventEmitter.emitAsync(event.eventType, event);
   }
   publishAll<E extends IEvent<object, any>>(events: E[]): void {

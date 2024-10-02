@@ -47,8 +47,6 @@ export class EventBus<TEvent extends IEvent = IEvent>
   }
 
   publish<T extends TEvent>(event: T) {
-    console.log('publish', event);
-
     return this._pubsub.publish(event);
   }
 
@@ -60,8 +58,6 @@ export class EventBus<TEvent extends IEvent = IEvent>
   }
 
   bind(name: string) {
-    console.log('bind', name);
-
     const stream$ = name ? this.ofEventName(name) : this.subject$;
     const subscription = stream$.subscribe(async (event) => {
       const instances = await this.handlersRegister.get(event);
@@ -71,17 +67,12 @@ export class EventBus<TEvent extends IEvent = IEvent>
   }
 
   register(handlers: EventHandlerType<TEvent>[] = []) {
-    console.log('register', handlers);
-
     handlers.forEach((handler) => this.registerHandler(handler));
   }
 
   protected registerHandler(handler: EventHandlerType<TEvent>) {
-    console.log('registerHandler', this.handlersRegister.registerHandler(handler));
-
     if (this.handlersRegister.registerHandler(handler)) {
       const eventsNames = this.reflectEventsNames(handler);
-      console.log('registerHandler', 'eventsNames', eventsNames);
 
       eventsNames.map((event) => this.bind(event.name));
     }
