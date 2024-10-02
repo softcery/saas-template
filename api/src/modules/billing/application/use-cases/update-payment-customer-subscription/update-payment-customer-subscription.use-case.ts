@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { PaymentCustomer } from '~modules/billing/domain/entities/payment-customer.entity';
+import { Command } from '~shared/application/CQS/command.abstract';
 import { IDbContext } from '~shared/application/services/db-context.interface';
-import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
 
 import { CustomerNotFoundByProviderIdException } from '../../exceptions/customer-not-found-by-provider-id.exception';
@@ -13,7 +13,7 @@ import {
 
 @Injectable()
 export class UpdatePaymentCustomerSubscriptionUseCase
-  extends UseCase<IUpdatePaymentCustomerSubscriptionPayload, PaymentCustomer>
+  extends Command<IUpdatePaymentCustomerSubscriptionPayload, PaymentCustomer>
   implements IUpdateCustomerSubscriptionUseCase
 {
   constructor(@Inject(BaseToken.DB_CONTEXT) private readonly dbContext: IDbContext) {

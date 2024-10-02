@@ -3,8 +3,9 @@ import { Inject } from '@nestjs/common';
 import { BaseToken } from '~shared/constants';
 
 import { IDbContext } from '../services/db-context.interface';
+import { IUseCase } from '../use-cases/use-case.interface';
 
-export abstract class Query<TInput, TOutput> {
+export abstract class Query<TInput, TOutput> implements IUseCase<TInput, TOutput> {
   protected _input: TInput;
 
   @Inject(BaseToken.DB_CONTEXT)

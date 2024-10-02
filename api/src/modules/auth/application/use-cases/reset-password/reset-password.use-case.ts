@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { AuthDiToken } from '~modules/auth/constants';
+import { Command } from '~shared/application/CQS/command.abstract';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
 import { IDbContext } from '~shared/application/services/db-context.interface';
-import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
 
 import { PasswordRecoveryTimeExceededException } from '../../exceptions/password-recovery-time-exceeded.exception';
@@ -12,7 +12,7 @@ import { IAuthService } from '../../services/auth-service.interface';
 import { IResetPasswordPayload, IResetPasswordUseCase } from './reset-password-use-case.interface';
 
 @Injectable()
-export class ResetPasswordUseCase extends UseCase<IResetPasswordPayload> implements IResetPasswordUseCase {
+export class ResetPasswordUseCase extends Command<IResetPasswordPayload> implements IResetPasswordUseCase {
   constructor(
     @Inject(AuthDiToken.AUTH_SERVICE) private readonly authService: IAuthService,
     @Inject(BaseToken.APP_CONFIG) private readonly appConfig: IAppConfigService,

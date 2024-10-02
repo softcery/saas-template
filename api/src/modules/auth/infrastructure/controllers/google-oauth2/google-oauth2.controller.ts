@@ -2,7 +2,7 @@ import { Controller, Get, Inject, Res, UseGuards } from '@nestjs/common';
 import { ApiExcludeEndpoint, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
-import { PerformPostAuthUseCase } from '~modules/auth/application/use-cases/perform-post-auth/perform-post-auth.use-case';
+import { IPerformPostAuthUseCase } from '~modules/auth/application/use-cases/perform-post-auth/perform-post-auth-use-case';
 import { AuthDiToken } from '~modules/auth/constants';
 import { User } from '~modules/auth/domain/entities/user.entity';
 import { Session } from '~modules/auth/domain/value-objects/session.value';
@@ -19,7 +19,7 @@ import { GoogleOauth2Guard } from '../../supabase/guards/google-oauth2/google-oa
 export class GoogleOauth2Controller {
   constructor(
     @Inject(BaseToken.APP_CONFIG) private readonly appConfig: IAppConfigService,
-    @Inject(AuthDiToken.PERFORM_POST_AUTH_USE_CASE) private readonly performPostAuthUseCase: PerformPostAuthUseCase,
+    @Inject(AuthDiToken.PERFORM_POST_AUTH_USE_CASE) private readonly performPostAuthUseCase: IPerformPostAuthUseCase,
   ) {}
 
   @PublicRoute()
