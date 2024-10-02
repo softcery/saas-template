@@ -9,7 +9,7 @@ export const signUpWithEmailPasswordApi = createApi({
     signUpWithEmailPassword: build.mutation<TokensResult, EmailPasswordCredentials>({
       queryFn: async (credentials: EmailPasswordCredentials) => {
         try {
-          const data = await apiService().auth.signIn({ requestBody: credentials })
+          const data = await apiService().auth.signUp({ requestBody: credentials })
           return { data }
         } catch (error) {
           if (error instanceof Error) {

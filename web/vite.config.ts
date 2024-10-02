@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react'
 import { fileURLToPath } from 'url'
 import { defineConfig } from 'vite'
+import EnvironmentPlugin from 'vite-plugin-environment'
 
 export default defineConfig({
   root: 'src',
@@ -30,12 +31,13 @@ export default defineConfig({
         plugins: [],
       },
     }),
-
+    EnvironmentPlugin({
+      API_BASE_URL: 'http://localhost:8080',
+    }),
   ],
   resolve: {
     alias: {
       '~': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-
 })

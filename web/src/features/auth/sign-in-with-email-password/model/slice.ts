@@ -1,6 +1,7 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
 import { apiService } from '~/shared/api'
 import { TokensResult, EmailPasswordCredentials } from '../types'
+import { viewerSlice } from '~/entities/viewer'
 
 export const signInWithEmailPasswordApi = createApi({
   reducerPath: 'signInWithEmailPassword',
@@ -10,14 +11,19 @@ export const signInWithEmailPasswordApi = createApi({
       queryFn: async (credentials: EmailPasswordCredentials) => {
         try {
           const data = await apiService().auth.signIn({ requestBody: credentials })
+
           return { data }
         } catch (error) {
           if (error instanceof Error) {
-            return { error: new Error(error['message']) }
+            return { error: { message: error.message } }
           } else {
-            return { error: new Error('Unknown error') }
+            return { error: { message: 'Unknown error' } }
           }
         }
+      },
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled
+        dispatch(viewerSlice.setTokens(data))
       },
     }),
   }),

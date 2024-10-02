@@ -1,4 +1,4 @@
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/dist/query/react'
+import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
 import { SendResetPasswordConfirmationPayload } from '../types'
 import { apiService } from '~/shared/api'
 

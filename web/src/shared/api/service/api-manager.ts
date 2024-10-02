@@ -16,13 +16,8 @@ export class ApiManager implements Api {
 
   public generateConfiguration() {
     return new ApiClient({
-      BASE: process.env.DD_API_URL,
+      BASE: process.env.API_BASE_URL,
       TOKEN: this.token,
-      ...(this.token && {
-        HEADERS: {
-          authorization: `Bearer ${this.token}`,
-        },
-      }),
     })
   }
 

@@ -2,11 +2,11 @@ import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
 import { apiService } from '~/shared/api'
 import { UpdateUserPasswordPayload } from '../types'
 
-export const changePasswordApi = createApi({
+export const updatePasswordApi = createApi({
   reducerPath: 'changePasswordApi',
   baseQuery: fakeBaseQuery(),
   endpoints: (build) => ({
-    changePasswordApi: build.mutation<void, UpdateUserPasswordPayload>({
+    updatePassword: build.mutation<void, UpdateUserPasswordPayload>({
       queryFn: async (credentials: UpdateUserPasswordPayload) => {
         try {
           const data = await apiService().auth.changePassword({
