@@ -2,6 +2,7 @@ import { Injectable, Scope } from '@nestjs/common';
 import { AuthError } from '@supabase/supabase-js';
 
 import { IAuthService } from '~modules/auth/application/services/auth-service.interface';
+import { Session } from '~modules/auth/domain/value-objects/session.value';
 
 import { AppException } from 'src/core/exceptions/domain/exceptions/base/app.exception';
 import { CustomException } from 'src/core/exceptions/domain/exceptions/custom-exception/dynamic.exception';
@@ -19,6 +20,16 @@ export class SupabaseAuthService implements IAuthService {
     private readonly supabaseSessionMapper: SupabaseSessionMapper,
     private readonly supabaseUserMapper: SupabaseUserMapper,
   ) {}
+
+  public async signUpByEmailPassword(email: string, password: string): Promise<Session> {
+    const { data, error } = await this.supabaseClientService.client.auth.signUp({
+      email,
+      password,
+    });
+    if (error) throw this.supabaseErrorToAppException(error);
+
+    return this.supabaseSessionMapper.toDomain(data.session);
+  }
 
   async refreshSession(refreshToken: string) {
     const { data, error } = await this.supabaseAuthenticatedClientService.client.auth.refreshSession({
