@@ -33,16 +33,11 @@ import { validateConfig } from './infrastructure/util/validate-config';
     EventEmitterEventPublisher,
     EventEmitterEventSource,
     {
-      provide: BaseToken.DOMAIN_EVENT_DISPATCHER,
-      useFactory: (integrationService: IEventIntegrationService) => new EventDispatcher(integrationService),
-      inject: [InMemoryEventIntegrationService],
-    },
-    {
-      provide: BaseToken.INFRASTRUCTURE_EVENT_DISPATCHER,
+      provide: BaseToken.EVENT_DISPATCHER,
       useFactory: (integrationService: IEventIntegrationService) => new EventDispatcher(integrationService),
       inject: [InMemoryEventIntegrationService],
     },
   ],
-  exports: [BaseToken.APP_CONFIG],
+  exports: [BaseToken.APP_CONFIG, BaseToken.EVENT_DISPATCHER],
 })
 export class SharedModule {}
