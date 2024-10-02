@@ -21,7 +21,6 @@ export class UserEventHandler implements IEventHandler<UserCreatedEvent> {
     const providerCustomer = await this.paymentCustomerService.createCustomer({
       email: event.payload.user.email,
     });
-    console.log(event);
 
     const domainCustomer = PaymentCustomer.fromOptions({
       userId: event.payload.user.id,
@@ -29,7 +28,7 @@ export class UserEventHandler implements IEventHandler<UserCreatedEvent> {
       name: providerCustomer.name,
       providerCustomerId: providerCustomer.providerId,
       trialCanceledAt: providerCustomer.trialCanceledAt,
-      subscriptionProviderId: providerCustomer.subscription.providerId,
+      subscriptionProviderId: providerCustomer.subscription?.providerId,
     });
 
     await this.dbContext.paymentCustomerRepository.create(domainCustomer);
