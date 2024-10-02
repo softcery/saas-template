@@ -1,8 +1,8 @@
 import { InferSelectModel, Table, eq } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
-import { IBaseRepository } from '~shared/application/repositories/base-repository.interface';
 import { IDataAccessMapper } from '~shared/domain/mappers/data-access-mapper.interface';
+import { IBaseRepository } from '~shared/domain/repositories/base-repository.interface';
 
 import { MergedDbSchema } from '../../schema';
 

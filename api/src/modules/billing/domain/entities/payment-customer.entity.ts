@@ -4,7 +4,6 @@ import { Subscription, SubscriptionStatus } from '~modules/billing/infrastructur
 import { Entity } from '~shared/domain/entities/entity';
 
 export interface IPaymentCustomerBase {
-  id: string;
   providerCustomerId: string;
   userId: string;
   name: string;

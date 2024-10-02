@@ -7,7 +7,7 @@ import {
 } from '~modules/billing/infrastructure/stripe/models/payment-plan-options.model';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
 import { IDbContext } from '~shared/application/services/db-context.interface';
-import { UseCase } from '~shared/application/use-case/use-case.interface';
+import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
 
 import { SubscriptionActionDto } from '../../dto/subscription-action.dto';

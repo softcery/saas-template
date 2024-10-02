@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { AuthDiToken } from '~modules/auth/constants';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
 import { IDbContext } from '~shared/application/services/db-context.interface';
-import { UseCase } from '~shared/application/use-case/use-case.interface';
+import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
 
 import { PasswordRecoveryTimeExceededException } from '../../exceptions/password-recovery-time-exceeded.exception';

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { SubscriptionPlansMapper } from '~modules/billing/domain/mappers/subscription-plan/subscription-plans.mapper';
 import { BillingDiToken } from '~modules/billing/infrastructure/stripe/constants';
-import { UseCase } from '~shared/application/use-case/use-case.interface';
+import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 
 import { SubscriptionPlanListDto } from '../../dto/subscription-plan-list.dto';
 import { ISubscriptionPlanService } from '../../services/subscription-plan-service.interface';

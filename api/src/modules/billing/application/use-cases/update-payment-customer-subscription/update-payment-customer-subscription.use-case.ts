@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { PaymentCustomer } from '~modules/billing/domain/entities/payment-customer.entity';
 import { IDbContext } from '~shared/application/services/db-context.interface';
-import { UseCase } from '~shared/application/use-case/use-case.interface';
+import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
 
 import { CustomerNotFoundByProviderIdException } from '../../exceptions/customer-not-found-by-provider-id.exception';
