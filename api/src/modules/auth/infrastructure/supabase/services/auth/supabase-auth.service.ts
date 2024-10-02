@@ -21,10 +21,13 @@ export class SupabaseAuthService implements IAuthService {
     private readonly supabaseUserMapper: SupabaseUserMapper,
   ) {}
 
-  public async signUpByEmailPassword(email: string, password: string): Promise<Session> {
+  public async signUpByEmailPassword(email: string, password: string, emailRedirectUrl?: string): Promise<Session> {
     const { data, error } = await this.supabaseClientService.client.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: emailRedirectUrl,
+      },
     });
     if (error) throw this.supabaseErrorToAppException(error);
 
