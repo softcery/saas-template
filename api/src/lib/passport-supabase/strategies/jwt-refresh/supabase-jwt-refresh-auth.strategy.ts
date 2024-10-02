@@ -23,6 +23,7 @@ export class SupabaseJwtRefreshAuthStrategy extends SupabaseBaseAuthStrategy {
     const authResult: IAuthResult = {
       user: data.user,
       session: data.session,
+      client: this.supabaseClient,
     };
 
     this.success(authResult);

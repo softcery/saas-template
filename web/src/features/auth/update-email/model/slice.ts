@@ -6,7 +6,7 @@ export const changeEmailApi = createApi({
   reducerPath: 'changeEmailApi',
   baseQuery: fakeBaseQuery(),
   endpoints: (build) => ({
-    changeEmailApi: build.mutation<void, UpdateUserEmailPayload>({
+    changeEmail: build.mutation<void, UpdateUserEmailPayload>({
       queryFn: async (payload: UpdateUserEmailPayload) => {
         try {
           await apiService().auth.changeEmail({ requestBody: payload })

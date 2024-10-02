@@ -50,6 +50,7 @@ export class SupabaseCredentialsLoginAuthStrategy extends SupabaseBaseAuthStrate
       const authResult: IAuthResult = {
         user: data.user,
         session: data.session,
+        client: this.supabaseClient,
       };
 
       this.success(authResult);

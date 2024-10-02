@@ -1,1 +1,1 @@
-export * from './selectors'
+export { useUpdatePassword } from './use-update-password'

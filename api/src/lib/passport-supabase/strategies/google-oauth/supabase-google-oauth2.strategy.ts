@@ -1,13 +1,7 @@
-import { Request } from 'express';
-
 import { IOAuth2StrategyOptions } from 'src/lib/passport-oauth';
 
 import { IAuthResult, ISupabaseClientOptions } from '../../core';
-import { ISupabaseBaseAuthStrategyOptions, SupabaseBaseAuthStrategy } from '../base';
-import {
-  ISupabaseBaseOauthStrategyOptions,
-  SupabaseBaseOauth2Strategy,
-} from '../supabase-base-oauth2-strategy/supabase-base-oauth2.strategy';
+import { SupabaseBaseOauth2Strategy } from '../supabase-base-oauth2-strategy/supabase-base-oauth2.strategy';
 
 export interface ISupabaseGoogleOAuthStrategyOptions extends ISupabaseClientOptions {
   clientId: string;
@@ -60,6 +54,7 @@ export class SupabaseGoogleOAuth2Strategy extends SupabaseBaseOauth2Strategy<IGo
     const authResult: IAuthResult = {
       user: data.user,
       session: data.session,
+      client: this.supabaseClient,
     };
 
     this.success(authResult);

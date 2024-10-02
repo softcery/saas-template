@@ -1,3 +1,1 @@
-import { signInWithEmailPasswordApi } from './slice'
-
-const {} = signInWithEmailPasswordApi
+export { signInWithEmailPasswordApi } from './slice'

@@ -6,15 +6,18 @@ import { ViewerLocalStorageKeys } from '~/entities/viewer'
 import { useViewerSelectors } from './selectors'
 
 export const useSessionSyncWithApi = () => {
-  const session = useViewerSelectors.session()
+  const accessToken = useViewerSelectors.accessToken()
+  const refreshToken = useViewerSelectors.refreshToken()
 
   useLayoutEffect(() => {
-    if (!session) return
+    if (refreshToken) {
+      localStorage.setItem(ViewerLocalStorageKeys.REFRESH_TOKEN, refreshToken)
+      updateRefreshToken(refreshToken)
+    }
 
-    localStorage.setItem(ViewerLocalStorageKeys.ACCESS_TOKEN, session.accessToken)
-    localStorage.setItem(ViewerLocalStorageKeys.REFRESH_TOKEN, session.refreshToken)
-
-    updateAccessToken(session.accessToken)
-    updateRefreshToken(session.refreshToken)
-  }, [session])
+    if (accessToken) {
+      localStorage.setItem(ViewerLocalStorageKeys.ACCESS_TOKEN, accessToken)
+      updateAccessToken(accessToken)
+    }
+  }, [accessToken, refreshToken])
 }
