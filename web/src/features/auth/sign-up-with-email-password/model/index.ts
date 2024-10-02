@@ -1,0 +1,1 @@
+export { signUpWithEmailPasswordApi } from './slice'
