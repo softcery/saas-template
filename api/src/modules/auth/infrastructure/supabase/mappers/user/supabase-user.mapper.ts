@@ -21,6 +21,7 @@ export class SupabaseUserMapper {
       .emailConfirmedAt(supabaseUser.email_confirmed_at ? new Date(supabaseUser.email_confirmed_at) : undefined)
       .phoneConfirmedAt(supabaseUser.phone_confirmed_at ? new Date(supabaseUser.phone_confirmed_at) : undefined)
       .lastSignInAt(supabaseUser.last_sign_in_at ? new Date(supabaseUser.last_sign_in_at) : undefined)
+      .signUpCompleted(supabaseUser.user_metadata.completed ?? false)
       .role(supabaseUser.role)
       .updatedAt(supabaseUser.updated_at ? new Date(supabaseUser.updated_at) : undefined)
       .build();

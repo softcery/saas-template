@@ -2,7 +2,7 @@ import { Injectable, Scope } from '@nestjs/common';
 import { AuthError } from '@supabase/supabase-js';
 
 import { IAuthService } from '~modules/auth/application/services/auth-service.interface';
-import { Session } from '~modules/auth/domain/value-objects/session.value';
+import { User } from '~modules/auth/domain/entities/user.entity';
 
 import { AppException } from 'src/core/exceptions/domain/exceptions/base/app.exception';
 import { CustomException } from 'src/core/exceptions/domain/exceptions/custom-exception/dynamic.exception';
@@ -21,7 +21,7 @@ export class SupabaseAuthService implements IAuthService {
     private readonly supabaseUserMapper: SupabaseUserMapper,
   ) {}
 
-  public async signUpByEmailPassword(email: string, password: string, emailRedirectUrl?: string): Promise<Session> {
+  public async signUpByEmailPassword(email: string, password: string, emailRedirectUrl?: string): Promise<User> {
     const { data, error } = await this.supabaseClientService.client.auth.signUp({
       email,
       password,
@@ -29,9 +29,12 @@ export class SupabaseAuthService implements IAuthService {
         emailRedirectTo: emailRedirectUrl,
       },
     });
-    if (error) throw this.supabaseErrorToAppException(error);
 
-    return this.supabaseSessionMapper.toDomain(data.session);
+    if (error) throw this.supabaseErrorToAppException(error);
+    await this.supabaseAuthenticatedClientService.authenticateWithSession(
+      this.supabaseSessionMapper.toDomain(data.session),
+    );
+    return this.supabaseUserMapper.toDomain(data.user);
   }
 
   async refreshSession(refreshToken: string) {
@@ -64,5 +67,14 @@ export class SupabaseAuthService implements IAuthService {
       redirectTo: redirectUrl,
     });
     if (error) throw this.supabaseErrorToAppException(error);
+  }
+
+  public async markSignUpFinished(): Promise<void> {
+    const { data, error } = await this.supabaseAuthenticatedClientService.client.auth.getUser();
+    if (error) throw this.supabaseErrorToAppException(error);
+
+    this.supabaseAuthenticatedClientService.client.auth.updateUser({
+      data: { ...data.user.user_metadata, completed: true },
+    });
   }
 }

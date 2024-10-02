@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { ChangeEmailUseCase } from './application/use-cases/change-email/change-email.use-case';
 import { ChangePasswordUseCase } from './application/use-cases/change-password/change-password.use-case';
+import { PerformPostOAuthUseCase } from './application/use-cases/perform-post-oauth/perform-post-oauth.use-case';
 import { ResetPasswordUseCase } from './application/use-cases/reset-password/reset-password.use-case';
 import { SendResetPasswordConfirmationUseCase } from './application/use-cases/send-reset-password-confirmation/send-reset-password-confirmation.use-case';
 import { SignUpByEmailPasswordUseCase } from './application/use-cases/sign-up-by-email-password/sign-up-by-email-password.use-case';
@@ -40,6 +41,7 @@ import { SupabaseJwtRefreshAuthStrategy } from './infrastructure/supabase/strate
     { provide: AuthDiToken.RESET_PASSWORD_USE_CASE, useClass: ResetPasswordUseCase },
     { provide: AuthDiToken.PASSWORD_SERVICE, useClass: BcryptPasswordService },
     { provide: AuthDiToken.SIGN_UP_BY_EMAIL_PASSWORD, useClass: SignUpByEmailPasswordUseCase },
+    { provide: AuthDiToken.PERFORM_POST_OAUTH_USE_CASE, useClass: PerformPostOAuthUseCase },
   ],
   controllers: [
     CredentialsAuthController,

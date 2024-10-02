@@ -18,6 +18,7 @@ export class User {
   public readonly lastSignInAt?: Date;
   public readonly role?: string;
   public readonly updatedAt?: Date;
+  public readonly signUpCompleted: boolean = false;
 
   public get isEmailConfirmed(): boolean {
     return !!this.emailConfirmedAt;

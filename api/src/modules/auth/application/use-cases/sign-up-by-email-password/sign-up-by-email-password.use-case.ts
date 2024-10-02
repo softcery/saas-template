@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { AuthDiToken } from '~modules/auth/constants';
+import { UserCreatedEvent } from '~modules/auth/domain/events/user-created.event';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
 import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
@@ -24,6 +25,12 @@ export class SignUpByEmailPasswordUseCase
   protected async implementation(): Promise<void> {
     const { email, password } = this._input;
 
-    await this.authService.signUpByEmailPassword(email, password, this.appConfig.get('DD_CLIENT_AUTH_REDIRECT_URL'));
+    const user = await this.authService.signUpByEmailPassword(
+      email,
+      password,
+      this.appConfig.get('DD_CLIENT_AUTH_REDIRECT_URL'),
+    );
+
+    this._eventDispatcher.registerEvent(new UserCreatedEvent({ user }));
   }
 }

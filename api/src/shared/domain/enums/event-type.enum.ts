@@ -1,3 +1,4 @@
 export enum DomainEventType {
-  TEST = 'TEST',
+  USER = 'user',
+  USER_CREATED = 'user.created',
 }
