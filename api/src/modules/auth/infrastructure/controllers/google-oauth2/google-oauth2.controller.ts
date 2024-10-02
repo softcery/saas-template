@@ -9,6 +9,7 @@ import { Session } from '~modules/auth/domain/value-objects/session.value';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
 import { BaseToken } from '~shared/constants';
 
+import { PublicRoute } from '../../decorators/public-route/public-route.decorator';
 import { ReqSession } from '../../decorators/session/session.decorator';
 import { ReqUser } from '../../decorators/user/user.decorator';
 import { GoogleOauth2Guard } from '../../supabase/guards/google-oauth2/google-oauth2.guard';
@@ -21,11 +22,13 @@ export class GoogleOauth2Controller {
     @Inject(AuthDiToken.PERFORM_POST_AUTH_USE_CASE) private readonly performPostAuthUseCase: PerformPostAuthUseCase,
   ) {}
 
+  @PublicRoute()
   @UseGuards(GoogleOauth2Guard)
   @ApiOperation({ operationId: 'withGoogle' })
   @Get('google')
   public async google() {}
 
+  @PublicRoute()
   @UseGuards(GoogleOauth2Guard)
   @ApiExcludeEndpoint()
   @Get('google-callback')

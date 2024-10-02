@@ -21,6 +21,8 @@ export class UserEventHandler implements IEventHandler<UserCreatedEvent> {
     const providerCustomer = await this.paymentCustomerService.createCustomer({
       email: event.payload.user.email,
     });
+    console.log(event);
+
     const domainCustomer = PaymentCustomer.fromOptions({
       userId: event.payload.user.id,
       email: event.payload.user.email,

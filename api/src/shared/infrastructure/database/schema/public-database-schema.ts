@@ -2,7 +2,7 @@ import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 
 import { SubscriptionStatus } from '~modules/billing/infrastructure/stripe/models/subscription.model';
 
-export const paymentCustomer = pgTable('payment_customer', {
+export const paymentCustomer = pgTable('payment_customers', {
   id: text('id').primaryKey(),
   providerCustomerId: text('provider_customer_id').notNull(),
   userId: text('user_id').notNull(),

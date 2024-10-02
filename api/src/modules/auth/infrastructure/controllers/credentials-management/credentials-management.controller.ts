@@ -12,6 +12,7 @@ import { ISendResetPasswordConfirmationUseCase } from '~modules/auth/application
 import { AuthDiToken } from '~modules/auth/constants';
 import { User } from '~modules/auth/domain/entities/user.entity';
 
+import { PublicRoute } from '../../decorators/public-route/public-route.decorator';
 import { UserId } from '../../decorators/user-id/user-id.decorator';
 import { ReqUser } from '../../decorators/user/user.decorator';
 
@@ -38,6 +39,7 @@ export class CredentialsManagementController {
     return this.changeEmailUseCase.execute(dto);
   }
 
+  @PublicRoute()
   @ApiOperation({ operationId: 'sendPasswordResetConfirmation' })
   @Post('/password/send-reset-confirmation')
   public async sendPasswordResetConfirmation(@Body() dto: SendResetPasswordConfirmationDto) {
