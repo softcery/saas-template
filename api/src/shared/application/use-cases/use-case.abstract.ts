@@ -14,9 +14,13 @@ export abstract class UseCase<TInput = void, TOutput = void> {
   @Inject(BaseToken.DB_CONTEXT)
   protected _dbContext: IDbContext;
 
-  async execute(input: TInput): Promise<TOutput> {
+  public async execute(input: TInput): Promise<TOutput> {
+    let result: TOutput;
     this._input = input;
-    return this.implementation();
+    result = await this.implementation();
+    this._eventDispatcher.dispatchEvents();
+
+    return result;
   }
 
   protected abstract implementation(): Promise<TOutput> | TOutput;
