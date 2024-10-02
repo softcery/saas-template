@@ -1,5 +1,5 @@
-CREATE TABLE IF NOT EXISTS "payment_customer" (
-	"id" text PRIMARY KEY NOT NULL,
+CREATE TABLE IF NOT EXISTS "payment_customers" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"provider_customer_id" text NOT NULL,
 	"user_id" text NOT NULL,
 	"name" text,
@@ -13,5 +13,3 @@ CREATE TABLE IF NOT EXISTS "payment_customer" (
 	"plan_ends_at" timestamp,
 	"subscription_status" text
 );
---> statement-breakpoint
-DROP TABLE "hello-world";

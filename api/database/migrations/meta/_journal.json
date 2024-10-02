@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1727176624339,
-      "tag": "0000_green_roulette",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1727889326210,
-      "tag": "0001_classy_nebula",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1727890165630,
-      "tag": "0002_neat_jamie_braddock",
+      "when": 1727892432994,
+      "tag": "0000_cheerful_johnny_storm",
       "breakpoints": true
     }
   ]
