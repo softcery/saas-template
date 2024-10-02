@@ -17,6 +17,7 @@ export class EventDispatcher implements IEventDispatcher {
   }
 
   dispatchEvents(): void {
+    if (!this.events.length) return;
     this.integrationService.publishEvents(this.events);
   }
 }
