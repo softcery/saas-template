@@ -28,6 +28,6 @@ export class ChangePasswordUseCase extends UseCase<IChangePasswordPayload> imple
     const isPasswordMatching = await this.passwordService.confirm(this._input.updateDto.oldPassword, hashedPassword);
     if (!isPasswordMatching) throw new PasswordsNotMatchException();
 
-    this.authService.updatePassword(this._input.updateDto.newPassword);
+    await this.authService.updatePassword(this._input.updateDto.newPassword);
   }
 }

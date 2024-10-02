@@ -35,6 +35,13 @@ export const SupabaseBaseAuthGuard = (type?: string | string[]): Type<IAuthGuard
 
       request.session = domainSession;
 
+      request.client = user.client;
+
+      if (user.client) {
+        this.supabaseAuthenticatedClientService.setAuthenticatedClient(user.client);
+        return domainUser as TUser;
+      }
+
       if (domainSession) {
         return this.supabaseAuthenticatedClientService
           .authenticateWithSession(domainSession)

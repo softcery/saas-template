@@ -6,6 +6,8 @@ declare global {
     export interface Request {
       session?: Session | null;
       accessToken?: string;
+      authenticatedClient?: SupabaseClient | null;
+      client?: SupabaseClient;
     }
 
     export interface User extends DomainUser {}

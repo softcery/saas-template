@@ -32,6 +32,10 @@ export class SupabaseAuthenticatedClientService {
     });
   }
 
+  public async setAuthenticatedClient(client: SupabaseClient) {
+    this._supabaseClient = client;
+  }
+
   private createClient() {
     this._supabaseClient = createClient(this.appConfig.get('SUPABASE_URL'), this.appConfig.get('SUPABASE_SECRET_KEY'), {
       auth: {
