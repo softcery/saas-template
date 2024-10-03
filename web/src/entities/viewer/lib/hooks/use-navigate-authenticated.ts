@@ -1,15 +1,15 @@
-import { useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useViewerSelectors } from './selectors'
 import { RoutesPath } from '~/shared/routing'
+import { useViewerSelectors } from './selectors'
 
 export const useNavigateAuthenticated = () => {
   const navigate = useNavigate()
   const session = useViewerSelectors.session()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (session) {
-      navigate(RoutesPath.BILLING)
+      navigate(RoutesPath.BILLING, { replace: true })
     }
   }, [session, navigate])
 }

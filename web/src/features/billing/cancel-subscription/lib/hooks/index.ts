@@ -1,1 +1,1 @@
-export { useCancelSubscriptionMutation } from './use-cancel-subscription'
+export { useCancelSubscription } from './use-cancel-subscription'
