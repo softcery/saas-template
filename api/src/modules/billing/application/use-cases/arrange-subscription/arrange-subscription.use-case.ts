@@ -5,9 +5,9 @@ import {
   PaymentPlanOptions,
   TrialOptions,
 } from '~modules/billing/infrastructure/stripe/models/payment-plan-options.model';
+import { Command } from '~shared/application/CQS/command.abstract';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
 import { IDbContext } from '~shared/application/services/db-context.interface';
-import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
 
 import { SubscriptionActionDto } from '../../dto/subscription-action.dto';
@@ -18,7 +18,7 @@ import { IArrangeSubscriptionPayload, IArrangeSubscriptionUseCase } from './arra
 
 @Injectable()
 export class ArrangeSubscriptionUseCase
-  extends UseCase<IArrangeSubscriptionPayload, SubscriptionActionDto>
+  extends Command<IArrangeSubscriptionPayload, SubscriptionActionDto>
   implements IArrangeSubscriptionUseCase
 {
   constructor(

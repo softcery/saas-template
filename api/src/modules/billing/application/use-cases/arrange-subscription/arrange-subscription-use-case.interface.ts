@@ -1,4 +1,4 @@
-import { UseCase } from '~shared/application/use-cases/use-case.abstract';
+import { IUseCase } from '~shared/application/use-cases/use-case.interface';
 
 import { ArrangeSubscriptionDto } from '../../dto/arrange-subscription.dto';
 import { SubscriptionActionDto } from '../../dto/subscription-action.dto';
@@ -8,4 +8,4 @@ export interface IArrangeSubscriptionPayload {
   arrangeSubscriptionDto: ArrangeSubscriptionDto;
 }
 
-export interface IArrangeSubscriptionUseCase extends UseCase<IArrangeSubscriptionPayload, SubscriptionActionDto> {}
+export interface IArrangeSubscriptionUseCase extends IUseCase<IArrangeSubscriptionPayload, SubscriptionActionDto> {}

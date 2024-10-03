@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { BillingDiToken } from '~modules/billing/infrastructure/stripe/constants';
+import { Command } from '~shared/application/CQS/command.abstract';
 import { IDbContext } from '~shared/application/services/db-context.interface';
-import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
 
 import { SubscriptionActionDto } from '../../dto/subscription-action.dto';
@@ -13,7 +13,7 @@ import { IUpgradeSubscriptionPayload, IUpgradeSubscriptionUseCase } from './upgr
 
 @Injectable()
 export class UpgradeSubscriptionUseCase
-  extends UseCase<IUpgradeSubscriptionPayload, SubscriptionActionDto>
+  extends Command<IUpgradeSubscriptionPayload, SubscriptionActionDto>
   implements IUpgradeSubscriptionUseCase
 {
   constructor(

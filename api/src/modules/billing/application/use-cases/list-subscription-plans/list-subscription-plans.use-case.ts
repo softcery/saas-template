@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { SubscriptionPlansMapper } from '~modules/billing/domain/mappers/subscription-plan/subscription-plans.mapper';
 import { BillingDiToken } from '~modules/billing/infrastructure/stripe/constants';
-import { UseCase } from '~shared/application/use-cases/use-case.abstract';
+import { Query } from '~shared/application/CQS/query.abstract';
 
 import { SubscriptionPlanListDto } from '../../dto/subscription-plan-list.dto';
 import { ISubscriptionPlanService } from '../../services/subscription-plan-service.interface';
@@ -10,7 +10,7 @@ import { IListSubscriptionPlansUseCase } from './list-subscription-plans-use-cas
 
 @Injectable()
 export class ListSubscriptionPlansUseCase
-  extends UseCase<void, SubscriptionPlanListDto>
+  extends Query<void, SubscriptionPlanListDto>
   implements IListSubscriptionPlansUseCase
 {
   constructor(

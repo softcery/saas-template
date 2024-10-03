@@ -1,6 +1,6 @@
 import { PaymentCustomer } from '~modules/billing/domain/entities/payment-customer.entity';
 import { Subscription } from '~modules/billing/infrastructure/stripe/models/subscription.model';
-import { UseCase } from '~shared/application/use-cases/use-case.abstract';
+import { IUseCase } from '~shared/application/use-cases/use-case.interface';
 
 export interface IUpdatePaymentCustomerSubscriptionPayload {
   customerProviderId: string;
@@ -8,4 +8,4 @@ export interface IUpdatePaymentCustomerSubscriptionPayload {
 }
 
 export interface IUpdateCustomerSubscriptionUseCase
-  extends UseCase<IUpdatePaymentCustomerSubscriptionPayload, PaymentCustomer> {}
+  extends IUseCase<IUpdatePaymentCustomerSubscriptionPayload, PaymentCustomer> {}

@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { AuthDiToken } from '~modules/auth/constants';
 import { UserCreatedEvent } from '~modules/auth/domain/events/user-created.event';
+import { Command } from '~shared/application/CQS/command.abstract';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
-import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
 
 import { EmailPasswordCredentialsDto } from '../../dto/email-password-credentials.dto';
@@ -12,7 +12,7 @@ import { ISignUpByEmailPasswordUseCase } from './sign-up-by-email-password-use-c
 
 @Injectable()
 export class SignUpByEmailPasswordUseCase
-  extends UseCase<EmailPasswordCredentialsDto, void>
+  extends Command<EmailPasswordCredentialsDto, void>
   implements ISignUpByEmailPasswordUseCase
 {
   constructor(

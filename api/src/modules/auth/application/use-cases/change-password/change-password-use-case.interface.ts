@@ -1,4 +1,4 @@
-import { UseCase } from '~shared/application/use-cases/use-case.abstract';
+import { IUseCase } from '~shared/application/use-cases/use-case.interface';
 
 import { UpdateUserPasswordDto } from '../../dto/update-user-password.dto';
 
@@ -7,4 +7,4 @@ export interface IChangePasswordPayload {
   userId: string;
 }
 
-export interface IChangePasswordUseCase extends UseCase<IChangePasswordPayload> {}
+export interface IChangePasswordUseCase extends IUseCase<IChangePasswordPayload> {}

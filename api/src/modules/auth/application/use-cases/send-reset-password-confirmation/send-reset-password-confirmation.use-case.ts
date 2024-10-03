@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { AuthDiToken } from '~modules/auth/constants';
+import { Command } from '~shared/application/CQS/command.abstract';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
-import { UseCase } from '~shared/application/use-cases/use-case.abstract';
 import { BaseToken } from '~shared/constants';
 
 import { SendResetPasswordConfirmationDto } from '../../dto/send-reset-password-confirmation.dto';
@@ -11,7 +11,7 @@ import { ISendResetPasswordConfirmationUseCase } from './send-reset-password-con
 
 @Injectable()
 export class SendResetPasswordConfirmationUseCase
-  extends UseCase<SendResetPasswordConfirmationDto>
+  extends Command<SendResetPasswordConfirmationDto>
   implements ISendResetPasswordConfirmationUseCase
 {
   constructor(
