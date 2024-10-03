@@ -3,6 +3,8 @@ import { plainToInstance } from 'class-transformer';
 import { Subscription, SubscriptionStatus } from '~modules/billing/infrastructure/stripe/models/subscription.model';
 import { Entity } from '~shared/domain/entities/entity';
 
+import { PaymentCustomerPlan } from './payment-customer-subscription.entity';
+
 export interface IPaymentCustomerBase {
   providerCustomerId: string;
   userId: string;
@@ -19,21 +21,17 @@ export interface IPaymentCustomerBase {
 }
 
 export class PaymentCustomer extends Entity<string> implements IPaymentCustomerBase {
-  public providerCustomerId: string;
-  public userId: string;
   public name: string;
   public email: string;
-  public subscriptionProviderId: string | null = null;
+  public userId: string;
+  public providerCustomerId: string;
+  public paymentPlan: PaymentCustomerPlan | null = null;
   public trialStartedAt: Date = null;
   public trialCanceledAt: Date = null;
-  public trialEndsAt: Date = null;
-  public planStartedAt: Date = null;
   public subscriptionCanceledAt: Date = null;
-  public planEndsAt: Date = null;
-  public subscriptionStatus: SubscriptionStatus = null;
 
   get hasActiveSubscription() {
-    return !!this.subscriptionProviderId;
+    return !!(this.paymentPlan?.subscriptionStatus === SubscriptionStatus.Active);
   }
 
   get hasTrial() {
@@ -53,10 +51,15 @@ export class PaymentCustomer extends Entity<string> implements IPaymentCustomerB
   }
 
   public updateSubscriptionDetails(subscription: Subscription) {
-    this.planStartedAt = subscription.planStartedAt;
-    this.planEndsAt = subscription.planEndsAt;
     this.subscriptionCanceledAt = subscription.subscriptionCanceledAt;
-    this.subscriptionProviderId = subscription.providerId;
+    if (!this.paymentPlan) {
+      this.paymentPlan = PaymentCustomerPlan.builder().build();
+    }
+    this.paymentPlan.planStartedAt = subscription.planStartedAt;
+    this.paymentPlan.planEndsAt = subscription.planEndsAt;
+    this.paymentPlan.subscriptionProviderId = subscription.providerId;
+    this.paymentPlan.productProviderId = subscription.productProviderId;
+    this.paymentPlan.subscriptionStatus = subscription.status;
   }
 
   public static fromOptions(options: IPaymentCustomerBase) {

@@ -7,6 +7,7 @@ export class DrizzlePaymentCustomerMapper {
   public static toPersistence(entity: PaymentCustomer): PaymentCustomerPersistence {
     return {
       ...entity,
+      customerPlanId: entity.paymentPlan?.id ?? null,
     };
   }
 

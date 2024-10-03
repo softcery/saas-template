@@ -3,9 +3,11 @@ import { Module } from '@nestjs/common';
 import { UserEventHandler } from './application/handlers/user/user.event-handler';
 import { ArrangeSubscriptionUseCase } from './application/use-cases/arrange-subscription/arrange-subscription.use-case';
 import { CancelSubscriptionUseCase } from './application/use-cases/cancel-subscription/cancel-subscription.use-case';
+import { GetPaymentCustomerUseCase } from './application/use-cases/get-payment-customer/get-payment-customer.use-case';
 import { ListSubscriptionPlansUseCase } from './application/use-cases/list-subscription-plans/list-subscription-plans.use-case';
 import { UpdatePaymentCustomerSubscriptionUseCase } from './application/use-cases/update-payment-customer-subscription/update-payment-customer-subscription.use-case';
 import { UpgradeSubscriptionUseCase } from './application/use-cases/upgrade-subscription/upgrade-subscription.use-case';
+import { PaymentCustomerMapper } from './domain/mappers/payment-customer/payment-customer.mapper';
 import { SubscriptionPlansMapper } from './domain/mappers/subscription-plan/subscription-plans.mapper';
 import { StripeWebhookController } from './infrastructure/controllers/stripe-webhook/stripe-webhook.controller';
 import { SubscriptionManagementController } from './infrastructure/controllers/subscription-management/subscription-management.controller';
@@ -39,6 +41,8 @@ import { StripeSubscriptionPlanService } from './infrastructure/stripe/services/
       provide: BillingDiToken.UPDATE_PAYMENT_CUSTOMER_SUBSCRIPTION_USE_CASE,
       useClass: UpdatePaymentCustomerSubscriptionUseCase,
     },
+    { provide: BillingDiToken.GET_PAYMENT_CUSTOMER_USE_CASE, useClass: GetPaymentCustomerUseCase },
+    PaymentCustomerMapper,
   ],
   exports: [],
 })
