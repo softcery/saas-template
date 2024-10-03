@@ -1,3 +1,4 @@
 import { signUpWithEmailPasswordApi } from '../../model/slice'
 
-export const { useSignUpWithEmailPasswordMutation } = signUpWithEmailPasswordApi
+export const { useSignUpWithEmailPasswordMutation: useSignUpWithEmailPassword } =
+  signUpWithEmailPasswordApi
