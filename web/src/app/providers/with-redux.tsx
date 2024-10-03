@@ -12,6 +12,7 @@ import { cancelSubscriptionApi } from '~/features/billing/cancel-subscription'
 import { getProductsApi } from '~/features/billing/get-products'
 import { openPaymentApi } from '~/features/billing/open-payment'
 import { upgradeSubscriptionApi } from '~/features/billing/upgrade-subscription'
+import { toastNotificationsSlice } from '~/widgets/toast-notifications'
 
 export const withRedux = (Component: React.ComponentType) => () => {
   return (
@@ -24,6 +25,7 @@ export const withRedux = (Component: React.ComponentType) => () => {
 const store = configureStore({
   reducer: {
     viewer: viewerSlice.reducer,
+    toastNotifications: toastNotificationsSlice.reducer,
     [signInWithEmailPasswordApi.reducerPath]: signInWithEmailPasswordApi.reducer,
     [signUpWithEmailPasswordApi.reducerPath]: signUpWithEmailPasswordApi.reducer,
     [changeEmailApi.reducerPath]: changeEmailApi.reducer,

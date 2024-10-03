@@ -1,4 +1,5 @@
-export enum RouteParams {
-  CAMPAIGN_ID = 'campaignId',
+export enum RoutesPath {
+  SIGN_IN = '/sign-in',
+  SIGN_UP = '/sign-up',
+  BILLING = '/billing',
 }
-export enum ROUTES_PATH {}
