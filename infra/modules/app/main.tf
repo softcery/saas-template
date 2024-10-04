@@ -48,9 +48,9 @@ resource "digitalocean_app" "saas_template" {
     }
 
     env {
-      key   = "NPM_TOKEN"
+      key   = "GITHUB_TOKEN"
       scope = "BUILD_TIME"
-      value = var.npm_token
+      value = var.github_token
     }
 
     service {

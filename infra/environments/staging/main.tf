@@ -11,9 +11,7 @@ terraform {
     region                      = "us-west-1"
     bucket                      = "saas-template-space"
     key                         = "staging_terraform.tfstate"
-    skip_requesting_account_id  = true
     skip_credentials_validation = true
-    skip_get_ec2_platforms      = true
     skip_metadata_api_check     = true
   }
 }
@@ -43,7 +41,7 @@ module "saas_template_app" {
   branch               = "staging"
   deploy_on_push       = false
   do_token             = var.do_token
-  npm_token            = var.npm_token
+  github_token        = var.github_token
   api_http_port        = 8080
   instance_count       = 1
   instance_size_slug   = "apps-s-1vcpu-1gb"

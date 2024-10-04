@@ -26,8 +26,8 @@ variable "logtail_source_token" {
   type        = string
 }
 
-variable "npm_token" {
-  description = "NPM token for the build / deployment process"
+variable "github_token" {
+  description = "Github token for the build / deployment process"
   type        = string
 }
 

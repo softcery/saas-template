@@ -12,7 +12,7 @@ env:
     DIGITAL_OCEAN_TOKEN: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
     SPACES_ACCESS_TOKEN: ${{ secrets.SPACES_ACCESS_TOKEN }}
     SPACES_SECRET_KEY: ${{ secrets.SPACES_SECRET_KEY }}
-    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
     deploy:
         runs-on: ubuntu-latest
@@ -34,7 +34,7 @@ jobs:
               working-directory: ./infra/environments/staging
               run: |
                   sed -i "s/autoreplace_do_token/$DIGITAL_OCEAN_TOKEN/g" variables.tf
-                  sed -i "s/autoreplace_npm_token/$NPM_TOKEN/g" variables.tf
+                  sed -i "s/autoreplace_github_token/$GITHUB_TOKEN/g" variables.tf
 
             - name: Terraform init and apply
               working-directory: ./infra/environments/staging

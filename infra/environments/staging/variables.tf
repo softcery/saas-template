@@ -17,8 +17,8 @@ variable "logtail_source_token" {
   default     = ""
 }
 
-variable "npm_token" {
-  description = "NPM token for the build / deployment process"
+variable "github_token" {
+  description = "Github token for the build / deployment process"
   type        = string
-  default     = "autoreplace_npm_token"
+  default     = "autoreplace_github_token"
 }
