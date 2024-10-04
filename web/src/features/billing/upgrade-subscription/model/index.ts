@@ -1,1 +1,1 @@
-export { upgradeSubscriptionApi } from './slice'
+export { extendedApi as upgradeSubscriptionApi } from './slice'

@@ -1,12 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 import React from 'react'
 import { Provider } from 'react-redux'
+import { billingApi } from '~/entities/billing'
 
 import { authApi, viewer } from '~/entities/viewer'
-import { cancelSubscriptionApi } from '~/features/billing/cancel-subscription'
-import { getProductsApi } from '~/features/billing/get-products'
-import { openPaymentApi } from '~/features/billing/open-payment'
-import { upgradeSubscriptionApi } from '~/features/billing/upgrade-subscription'
 import { toastNotificationsSlice } from '~/widgets/toast-notifications'
 
 export const withRedux = (Component: React.ComponentType) => () => {
@@ -22,18 +19,10 @@ const store = configureStore({
     viewer: viewer.reducer,
     toastNotifications: toastNotificationsSlice.reducer,
     [authApi.reducerPath]: authApi.reducer,
-    [getProductsApi.reducerPath]: getProductsApi.reducer,
-    [cancelSubscriptionApi.reducerPath]: cancelSubscriptionApi.reducer,
-    [openPaymentApi.reducerPath]: openPaymentApi.reducer,
-    [upgradeSubscriptionApi.reducerPath]: upgradeSubscriptionApi.reducer,
+    [billingApi.reducerPath]: billingApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(authApi.middleware)
-      .concat(getProductsApi.middleware)
-      .concat(openPaymentApi.middleware)
-      .concat(cancelSubscriptionApi.middleware)
-      .concat(upgradeSubscriptionApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware).concat(billingApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>
