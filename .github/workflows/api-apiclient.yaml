@@ -11,7 +11,7 @@ on:
             - staging
 
 env:
-    NPM_PACKAGE: '@softcery/sass-teamplate-api-client'
+    NPM_PACKAGE: '@softcery/sass-template-api-client'
 
 defaults:
     run:
