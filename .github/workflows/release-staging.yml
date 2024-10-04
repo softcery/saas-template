@@ -9,6 +9,7 @@ on:
 concurrency:
     group: ${{ github.head_ref || github.ref }}
 env:
+    APP_NAME: staging-saas-template
     DIGITAL_OCEAN_TOKEN: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
     SPACES_ACCESS_TOKEN: ${{ secrets.SPACES_ACCESS_TOKEN }}
     SPACES_SECRET_KEY: ${{ secrets.SPACES_SECRET_KEY }}
