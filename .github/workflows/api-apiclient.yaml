@@ -19,6 +19,8 @@ defaults:
 
 jobs:
     generate-apiclient:
+        permissions:
+            packages: read
         runs-on: ubuntu-latest
         environment: staging
         env:
