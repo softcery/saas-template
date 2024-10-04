@@ -26,7 +26,7 @@ export class ResetPasswordUseCase extends Command<IResetPasswordPayload> impleme
     if (!hashedPassword) throw new UserHasNoPasswordException();
 
     const isPasswordRecoveryTimeInRange = this._input.user.isPasswordRecoveryWithinTime(
-      this.appConfig.get('DD_PASSWORD_RECOVERY_TIME'),
+      this.appConfig.get('PASSWORD_RECOVERY_TIME'),
     );
 
     if (!isPasswordRecoveryTimeInRange) {

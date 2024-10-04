@@ -28,7 +28,7 @@ export class StripeWebhookController {
       const event = await this.stripeService.stripe.webhooks.constructEventAsync(
         body,
         stripeSignature,
-        this.appConfig.getOrThrow('DD_STRIPE_WEBHOOK_SIGNING_SECRET'),
+        this.appConfig.getOrThrow('STRIPE_WEBHOOK_SIGNING_SECRET'),
       );
       switch (event.type) {
         case 'customer.subscription.created':

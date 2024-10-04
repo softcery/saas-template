@@ -47,7 +47,7 @@ export class ArrangeSubscriptionUseCase
     }
 
     if (arrangeSubscriptionDto.useTrial) {
-      paymentPlanOptionsBuilder.trialOptions(new TrialOptions(this.appConfig.get('DD_TRIAL_PERIOD_DURATION_DAYS')));
+      paymentPlanOptionsBuilder.trialOptions(new TrialOptions(this.appConfig.get('TRIAL_PERIOD_DURATION_DAYS')));
     }
 
     const subscriptionAction = await this.subscriptionPlanService.createPlanPayment(

@@ -22,9 +22,6 @@ export class SendResetPasswordConfirmationUseCase
   }
 
   protected async implementation(): Promise<void> {
-    await this.authService.sendResetPasswordEmail(
-      this._input.email,
-      this.appConfig.get('DD_PASSWORD_RESET_REDIRECT_URL'),
-    );
+    await this.authService.sendResetPasswordEmail(this._input.email, this.appConfig.get('PASSWORD_RESET_REDIRECT_URL'));
   }
 }

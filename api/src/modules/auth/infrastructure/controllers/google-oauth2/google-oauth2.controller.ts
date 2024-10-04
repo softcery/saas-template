@@ -34,7 +34,7 @@ export class GoogleOauth2Controller {
   @Get('google-callback')
   public async googleRedirect(@Res() res: Response, @ReqSession() session: Session, @ReqUser() user: User) {
     await this.performPostAuthUseCase.execute({ user });
-    const redirectUrl = new URL(this.appConfig.get('DD_CLIENT_AUTH_REDIRECT_URL'));
+    const redirectUrl = new URL(this.appConfig.get('CLIENT_AUTH_REDIRECT_URL'));
     redirectUrl.searchParams.set('access-token', session.accessToken);
     redirectUrl.searchParams.set('refresh-token', session.refreshToken);
     redirectUrl.searchParams.set('token_type', 'Bearer');
