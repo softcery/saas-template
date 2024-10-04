@@ -29,7 +29,7 @@ module "env_config" {
 }
 
 module "saas_template_app" {
-  source = "../../modules/app"
+  source                = "../../modules/app"
   name                 = "stag-saas-template"
   region               = "lon"
   source_dir_static    = "./web"

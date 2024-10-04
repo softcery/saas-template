@@ -12,6 +12,7 @@ env:
     DIGITAL_OCEAN_TOKEN: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
     SPACES_ACCESS_TOKEN: ${{ secrets.SPACES_ACCESS_TOKEN }}
     SPACES_SECRET_KEY: ${{ secrets.SPACES_SECRET_KEY }}
+    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 jobs:
     deploy:
         runs-on: ubuntu-latest
@@ -20,7 +21,6 @@ jobs:
         env:
             TF_VERSION: 1.4.6
             APP_NAME: 'stag-saas-template'
-            NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         steps:
             - name: Checkout
               uses: actions/checkout@v3
