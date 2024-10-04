@@ -11,7 +11,8 @@
     "check:format": "prettier --write \"./!(node_modules|dist)/**/*.{ts,tsx,js,jsx}\"",
     "check:typescript": "tsc --noEmit -p .",
     "check:eslint": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
-    "check": "npm run check:format && npm run check:typescript && npm run check:eslint"
+    "check": "npm run check:format && npm run check:typescript && npm run check:eslint",
+    "build:digitalocean": "pnpm install --production=false && pnpm run build && rm -rf node_modules && pnpm install --production --frozen-lockfile"
   },
   "dependencies": {
     "@feature-sliced/eslint-config": "^0.1.1",
