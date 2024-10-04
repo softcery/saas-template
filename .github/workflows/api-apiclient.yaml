@@ -49,7 +49,7 @@ jobs:
               run: pnpm install --no-frozen-lockfile
 
             - name: Generate api-client
-              run: pnpm run apiclient:generate
+              run: pnpm run api-client:generate
             - name: Publish apiclient
               run: |
                   cd .api-client
