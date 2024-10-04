@@ -1,15 +1,15 @@
-FROM node:21-alpine AS base
+FROM node:21-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+COPY package*.json ./
 
-FROM base as build
-COPY . ./
-RUN pnpm run build
+RUN npm install
 
-FROM build AS run
-COPY . ./
+COPY . .
 
-CMD ["pnpm", "run", "start:prod"]
+RUN npm run build
+
+EXPOSE 8080
+
+CMD ["npm", "run", "start:prod"]
