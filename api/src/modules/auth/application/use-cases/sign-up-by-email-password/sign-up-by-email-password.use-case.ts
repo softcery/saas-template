@@ -28,7 +28,7 @@ export class SignUpByEmailPasswordUseCase
     const user = await this.authService.signUpByEmailPassword(
       email,
       password,
-      this.appConfig.get('DD_CLIENT_AUTH_REDIRECT_URL'),
+      this.appConfig.get('CLIENT_AUTH_REDIRECT_URL'),
     );
 
     this._eventDispatcher.registerEvent(new UserCreatedEvent({ user }));
