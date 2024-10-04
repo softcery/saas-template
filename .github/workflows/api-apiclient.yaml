@@ -20,6 +20,7 @@ defaults:
 jobs:
     generate-apiclient:
         permissions:
+            contents: read
             packages: read
         runs-on: ubuntu-latest
         environment: staging
