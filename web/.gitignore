@@ -125,7 +125,6 @@ cypress/screenshots/*
 .firebase
 build
 .idea
-.npmrc
 
 # Sentry Config File
 .env.sentry-build-plugin
