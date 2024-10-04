@@ -77,13 +77,13 @@ resource "digitalocean_app" "saas_template" {
         port                  = var.api_http_port
       }
 
-      log_destination {
-        name = var.logtail_source_name
+      # log_destination {
+      #   name = var.logtail_source_name
 
-        logtail {
-          token = var.logtail_source_token
-        }
-      }
+      #   logtail {
+      #     token = var.logtail_source_token
+      #   }
+      # }
     }
 
     ingress {
