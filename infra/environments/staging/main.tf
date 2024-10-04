@@ -9,7 +9,7 @@ terraform {
   backend "s3" {
     endpoint                    = "fra1.digitaloceanspaces.com"
     region                      = "us-west-1"
-    bucket                      = "detectdata-space"
+    bucket                      = "saas-template-space"
     key                         = "staging_terraform.tfstate"
     skip_requesting_account_id  = true
     skip_credentials_validation = true
