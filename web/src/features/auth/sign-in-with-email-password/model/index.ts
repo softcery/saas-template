@@ -1,1 +1,1 @@
-export { signInWithEmailPasswordApi } from './slice'
+export { extendedApi as signInWithEmailPasswordApi } from './slice'

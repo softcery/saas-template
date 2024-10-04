@@ -1,9 +1,8 @@
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
-import { SendResetPasswordConfirmationPayload } from '../types'
+import { authApi } from '~/entities/viewer'
 import { apiService } from '~/shared/api'
+import { SendResetPasswordConfirmationPayload } from '../types'
 
-export const sendPasswordResetConfirmationApi = createApi({
-  baseQuery: fakeBaseQuery(),
+export const extendedApi = authApi.injectEndpoints({
   endpoints: (build) => ({
     sendPasswordResetConfirmation: build.mutation<
       void,

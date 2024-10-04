@@ -2,12 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import { viewerSlice } from '~/entities/viewer'
-import { sendPasswordResetConfirmationApi } from '~/features/auth/send-password-reset-confirmation'
-import { signInWithEmailPasswordApi } from '~/features/auth/sign-in-with-email-password'
-import { signUpWithEmailPasswordApi } from '~/features/auth/sign-up-with-email-password'
-import { changeEmailApi } from '~/features/auth/update-email'
-import { updatePasswordApi } from '~/features/auth/update-password'
+import { authApi, viewer } from '~/entities/viewer'
 import { cancelSubscriptionApi } from '~/features/billing/cancel-subscription'
 import { getProductsApi } from '~/features/billing/get-products'
 import { openPaymentApi } from '~/features/billing/open-payment'
@@ -24,14 +19,9 @@ export const withRedux = (Component: React.ComponentType) => () => {
 
 const store = configureStore({
   reducer: {
-    viewer: viewerSlice.reducer,
+    viewer: viewer.reducer,
     toastNotifications: toastNotificationsSlice.reducer,
-    [signInWithEmailPasswordApi.reducerPath]: signInWithEmailPasswordApi.reducer,
-    [signUpWithEmailPasswordApi.reducerPath]: signUpWithEmailPasswordApi.reducer,
-    [changeEmailApi.reducerPath]: changeEmailApi.reducer,
-    [updatePasswordApi.reducerPath]: updatePasswordApi.reducer,
-    [sendPasswordResetConfirmationApi.reducerPath]:
-      sendPasswordResetConfirmationApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
     [getProductsApi.reducerPath]: getProductsApi.reducer,
     [cancelSubscriptionApi.reducerPath]: cancelSubscriptionApi.reducer,
     [openPaymentApi.reducerPath]: openPaymentApi.reducer,
@@ -39,11 +29,7 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-      .concat(signInWithEmailPasswordApi.middleware)
-      .concat(signUpWithEmailPasswordApi.middleware)
-      .concat(changeEmailApi.middleware)
-      .concat(updatePasswordApi.middleware)
-      .concat(sendPasswordResetConfirmationApi.middleware)
+      .concat(authApi.middleware)
       .concat(getProductsApi.middleware)
       .concat(openPaymentApi.middleware)
       .concat(cancelSubscriptionApi.middleware)

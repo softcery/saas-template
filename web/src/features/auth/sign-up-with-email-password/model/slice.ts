@@ -1,10 +1,8 @@
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
+import { authApi } from '~/entities/viewer'
 import { apiService } from '~/shared/api'
-import { TokensResult, EmailPasswordCredentials } from '../types'
+import { EmailPasswordCredentials, TokensResult } from '../types'
 
-export const signUpWithEmailPasswordApi = createApi({
-  reducerPath: 'signUpWithEmailPassword',
-  baseQuery: fakeBaseQuery(),
+export const extendedApi = authApi.injectEndpoints({
   endpoints: (build) => ({
     signUpWithEmailPassword: build.mutation<TokensResult, EmailPasswordCredentials>({
       queryFn: async (credentials: EmailPasswordCredentials) => {

@@ -1,1 +1,1 @@
-export { updatePasswordApi } from './slice'
+export { extendedApi as updatePasswordApi } from './slice'

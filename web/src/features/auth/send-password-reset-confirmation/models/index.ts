@@ -1,1 +1,1 @@
-export * from './slice'
+export { extendedApi as sendPasswordResetConfirmationApi } from './slice'
