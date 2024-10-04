@@ -13,10 +13,20 @@ provider "digitalocean" {
 }
 
 
+resource "digitalocean_project" "saas_template" {
+  name        = "SaaS Template"
+  description = "A project for the SaaS Template application"
+  purpose     = "Web Application"
+  environment = "Development"
+}
+
 resource "digitalocean_app" "saas_template" {
+  depends_on = [ digitalocean_project.saas_template ]
+  project_id = digitalocean_project.saas_template.id
   spec {
     name   = var.name
     region = var.region
+
 
     static_site {
       name              = "${var.name}-web"
