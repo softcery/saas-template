@@ -20,7 +20,15 @@ defaults:
 jobs:
     generate-apiclient:
         runs-on: ubuntu-latest
-
+        environment: staging
+        env:
+            SUPABASE_URL: ${{secrets.SUPABASE_URL}}
+            SUPABASE_SECRET_KEY: ${{secrets.SUPABASE_SECRET_KEY}}
+            GOOGLE_OAUTH_CLIENT_ID: ${{secrets.GOOGLE_OAUTH_CLIENT_ID}}
+            GOOGLE_OAUTH_SECRET: ${{secrets.GOOGLE_OAUTH_SECRET}}
+            DB_URL: ${{secrets.DB_URL}}
+            STRIPE_API_KEY: ${{secrets.STRIPE_API_KEY}}
+            STRIPE_WEBHOOK_SIGNING_SECRET: ${{secrets.STRIPE_WEBHOOK_SIGNING_SECRET}}
         steps:
             - name: Checkout 🛎
               uses: actions/checkout@v4
