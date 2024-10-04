@@ -1,9 +1,9 @@
 {
-  "name": "@softcery/sass-template-api-client",
+  "name": "@softcery/sass-template-apiclient",
   "repository": "https://github.com/softcery/saas-template",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Client for API",
   "main": "index.ts",
-  "author": "Softcery",
+  "author": "softcery",
   "license": "UNLICENSED"
 }
