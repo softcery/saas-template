@@ -1,0 +1,65 @@
+name: 'API – ApiClient'
+
+on:
+    workflow_dispatch:
+    push:
+        paths:
+            - api/**
+            - .github/workflows/api-apiclient.yaml
+
+        branches:
+            - staging
+
+env:
+    NPM_PACKAGE: '@softcery/sass-teamplate-api-client'
+
+defaults:
+    run:
+        working-directory: api
+
+jobs:
+    generate-apiclient:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout 🛎
+              uses: actions/checkout@v4
+
+            - name: Install pnpm
+              run: npm install -g pnpm
+
+            - name: Setup node env
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node }}
+                  cache: 'pnpm'
+                  cache-dependency-path: api/pnpm-lock.yaml
+
+            - name: Extract environment variables
+              working-directory: api/config
+              id: extract-env
+              run: |
+                  set -a
+                  source config.staging.sh
+                  set +a
+                  env > $GITHUB_ENV
+                  echo "API_ENV=$(cat $GITHUB_ENV)" >> $GITHUB_ENV
+
+            - name: Installing node_modules
+              run: pnpm install --no-frozen-lockfile
+
+            - name: Generate api-client
+              run: pnpm run apiclient:generate
+            - name: Publish apiclient
+              run: |
+                  cd .api-client
+                  echo 'authenticating'
+                  echo "@softcery:registry=https://npm.pkg.github.com/" > ~/.npmrc
+                  echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+                  echo 'calculating new version'
+                  LAST_VERSION=$(npm view ${{ env.NPM_PACKAGE }} version)
+                  NEW_VERSION=$(npx semver $LAST_VERSION -i minor)
+                  echo 'setting new version'
+                  npm version $NEW_VERSION
+                  echo 'publishing'
+                  npm publish
