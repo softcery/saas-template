@@ -37,7 +37,7 @@ module "saas_template_app" {
   api_url              = "" # replace with api url
   catchall_document    = "index.html"
   static_build_command = "pnpm run build:digitalocean"
-  gh_repository        = "softcery/detect-data"
+  gh_repository        = "softcery/saas-template"
   branch               = "staging"
   deploy_on_push       = false
   do_token             = var.do_token
