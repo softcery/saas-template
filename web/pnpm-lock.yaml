@@ -30,7 +30,7 @@ importers:
         specifier: ^2.2.7
         version: 2.2.7(react-redux@9.1.2(@types/react@18.3.5)(react@18.3.1)(redux@5.0.1))(react@18.3.1)
       '@softcery/sass-template-apiclient':
-        specifier: 0.3.0
+        specifier: ^0.3.0
         version: 0.3.0
       '@types/compose-function':
         specifier: ^0.0.33
