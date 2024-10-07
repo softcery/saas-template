@@ -44,4 +44,7 @@ export class AppConfigModel {
 
   @IsString()
   CLIENT_AUTH_REDIRECT_URL: string;
+
+  @IsString()
+  JWT_SECRET: string;
 }

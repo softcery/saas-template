@@ -12,6 +12,7 @@ import { ISendResetPasswordConfirmationUseCase } from '~modules/auth/application
 import { AuthDiToken } from '~modules/auth/constants';
 import { User } from '~modules/auth/domain/entities/user.entity';
 
+import { AuthenticateSupabaseClient } from '../../decorators/authenticate-supabase-client/authenticate-supabase-client.decorator';
 import { PublicRoute } from '../../decorators/public-route/public-route.decorator';
 import { UserId } from '../../decorators/user-id/user-id.decorator';
 import { ReqUser } from '../../decorators/user/user.decorator';
@@ -27,12 +28,14 @@ export class CredentialsManagementController {
     @Inject(AuthDiToken.RESET_PASSWORD_USE_CASE) private readonly resetPasswordUseCase: IResetPasswordUseCase,
   ) {}
 
+  @AuthenticateSupabaseClient()
   @ApiOperation({ operationId: 'changePassword' })
   @Post('/password')
   public async changePassword(@Body() dto: UpdateUserPasswordDto, @UserId() userId: string) {
     return this.changePasswordUseCase.execute({ updateDto: dto, userId });
   }
 
+  @AuthenticateSupabaseClient()
   @ApiOperation({ operationId: 'changeEmail' })
   @Post('/email')
   public async changeEmail(@Body() dto: UpdateUserEmailDto) {
@@ -46,6 +49,7 @@ export class CredentialsManagementController {
     return this.sendResetPasswordConfirmationUseCase.execute(dto);
   }
 
+  @AuthenticateSupabaseClient()
   @ApiOperation({ operationId: 'resetPassword' })
   @Post('/password/reset')
   public async resetPassword(@Body() dto: ResetPasswordDto, @ReqUser() user: User) {
