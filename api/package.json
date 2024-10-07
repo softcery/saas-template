@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "open-api:generate": "npm run build && node dist/src/main --api-client-and-exit",
-    "api-client:generate": "npm run open-api:generate && openapi --useOptions --input ./api.json --output ./.api-client --name ApiClient",
+    "api-client:generate": "npm run open-api:generate && openapi --useOptions --useUnionTypes --input ./api.json --output ./.api-client --name ApiClient",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:generate": "drizzle-kit generate --config=./config/drizzle.config.ts",
     "db:push": "drizzle-kit migrate --config=./config/drizzle.config.ts",
