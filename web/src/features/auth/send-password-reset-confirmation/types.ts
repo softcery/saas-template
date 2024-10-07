@@ -1,1 +1,1 @@
-export type { SendResetPasswordConfirmationDto as SendResetPasswordConfirmationPayload } from '@shared/api-client'
+export type { SendResetPasswordConfirmationDto as SendResetPasswordConfirmationPayload } from '@softcery/sass-template-apiclient'

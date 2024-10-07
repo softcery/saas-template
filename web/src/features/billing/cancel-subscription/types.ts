@@ -1,1 +1,1 @@
-export type { SubscriptionActionDto as SubscriptionAction } from '@shared/api-client'
+export type { SubscriptionActionDto as SubscriptionAction } from '@softcery/sass-template-apiclient'
