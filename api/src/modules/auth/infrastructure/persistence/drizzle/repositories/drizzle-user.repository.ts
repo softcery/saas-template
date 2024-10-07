@@ -2,8 +2,8 @@ import { eq } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 
 import { IUserRepository } from '~modules/auth/application/repositories/user-repository.interface';
-import { MergedDbSchema } from '~shared/infrastructure/database/schema';
-import { authUsers } from '~shared/infrastructure/database/schema/auth-database-schema';
+import { MergedDbSchema } from '~shared/infrastructure/database/drizzle/schema';
+import { authUsers } from '~shared/infrastructure/database/drizzle/schema/auth-database-schema';
 
 export class DrizzleUserRepository implements IUserRepository {
   constructor(protected readonly db: NodePgDatabase<MergedDbSchema>) {}
