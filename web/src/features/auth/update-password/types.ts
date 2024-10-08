@@ -1,1 +1,1 @@
-export type { UpdateUserPasswordDto as UpdateUserPasswordPayload } from '@shared/api-client'
+export type { UpdateUserPasswordDto as UpdateUserPasswordPayload } from '@softcery/sass-template-apiclient'

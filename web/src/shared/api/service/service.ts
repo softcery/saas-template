@@ -1,4 +1,4 @@
-import type { TokensResultDto } from '@shared/api-client'
+import type { TokensResultDto } from '@softcery/sass-template-apiclient'
 
 import { Api, ApiManager } from './api-manager'
 import { UNAUTHORIZED_ERROR } from '../config'

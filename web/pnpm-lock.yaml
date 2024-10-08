@@ -29,9 +29,9 @@ importers:
       '@reduxjs/toolkit':
         specifier: ^2.2.7
         version: 2.2.7(react-redux@9.1.2(@types/react@18.3.5)(react@18.3.1)(redux@5.0.1))(react@18.3.1)
-      '@shared/api-client':
-        specifier: file:../api/.api-client
-        version: '@softcery/sass-template-apiclient@file:../api/.api-client'
+      '@softcery/sass-template-apiclient':
+        specifier: ^0.3.0
+        version: 0.3.0
       '@types/compose-function':
         specifier: ^0.0.33
         version: 0.0.33
@@ -746,8 +746,8 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
-  '@softcery/sass-template-apiclient@file:../api/.api-client':
-    resolution: {directory: ../api/.api-client, type: directory}
+  '@softcery/sass-template-apiclient@0.3.0':
+    resolution: {integrity: sha512-01FZvuf5ilNjOaMk+LF3wplTvAjebpd2yFLruhH9e342esYQ3IKXAxh7QuCTKraoYZRCooVyNH7hnVP/7OQRuA==, tarball: https://npm.pkg.github.com/download/@softcery/sass-template-apiclient/0.3.0/432ed300a27a70401146e01194f11a523b13eb7c}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -2946,7 +2946,7 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@softcery/sass-template-apiclient@file:../api/.api-client': {}
+  '@softcery/sass-template-apiclient@0.3.0': {}
 
   '@types/babel__core@7.20.5':
     dependencies:

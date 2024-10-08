@@ -1,4 +1,4 @@
 export type {
   ArrangeSubscriptionDto as ArrangeSubscriptionCommand,
   SubscriptionActionDto as SubscriptionAction,
-} from '@shared/api-client'
+} from '@softcery/sass-template-apiclient'
