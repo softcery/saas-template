@@ -34,7 +34,7 @@ module "saas_template_app" {
   source_dir_api       = "./api"
   environment_slug     = "node-js"
   config_file          = var.config_file
-  api_url              = "" # replace with api url
+  api_url              = "https://stag-saas-template-46ccu.ondigitalocean.app/api"
   catchall_document    = "index.html"
   static_build_command = "pnpm run build:digitalocean"
   gh_repository        = "softcery/saas-template"
