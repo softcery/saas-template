@@ -1,49 +1,57 @@
 name: Release – Staging
 
 on:
-    workflow_dispatch:
-    push:
-        branches:
-            - staging
+  workflow_dispatch:
+  push:
+    branches:
+      - staging
 
 concurrency:
-    group: ${{ github.head_ref || github.ref }}
+  group: ${{ github.head_ref || github.ref }}
 env:
-    DIGITAL_OCEAN_TOKEN: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
-    SPACES_ACCESS_TOKEN: ${{ secrets.SPACES_ACCESS_TOKEN }}
-    SPACES_SECRET_KEY: ${{ secrets.SPACES_SECRET_KEY }}
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  DIGITAL_OCEAN_TOKEN: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+  SPACES_ACCESS_TOKEN: ${{ secrets.SPACES_ACCESS_TOKEN }}
+  SPACES_SECRET_KEY: ${{ secrets.SPACES_SECRET_KEY }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
-        timeout-minutes: 15
-        environment: staging
-        env:
-            TF_VERSION: 1.4.6
-            APP_NAME: 'stag-saas-template'
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: staging
+    env:
+      TF_VERSION: 1.4.6
+      APP_NAME: 'stag-saas-template'
+      SUPABASE_URL: ${{secrets.SUPABASE_URL}}
+      SUPABASE_SECRET_KEY: ${{secrets.SUPABASE_SECRET_KEY}}
+      GOOGLE_OAUTH_CLIENT_ID: ${{secrets.GOOGLE_OAUTH_CLIENT_ID}}
+      GOOGLE_OAUTH_SECRET: ${{secrets.GOOGLE_OAUTH_SECRET}}
+      DB_URL: ${{secrets.DB_URL}}
+      STRIPE_API_KEY: ${{secrets.STRIPE_API_KEY}}
+      STRIPE_WEBHOOK_SIGNING_SECRET: ${{secrets.STRIPE_WEBHOOK_SIGNING_SECRET}}
 
-            - name: Setup Terraform
-              uses: hashicorp/setup-terraform@v2
-              with:
-                  terraform_version: ${{ env.TF_VERSION }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - name: Replace tokens in variables.tf
-              working-directory: ./infra/environments/staging
-              run: |
-                  sed -i "s/autoreplace_do_token/$DIGITAL_OCEAN_TOKEN/g" variables.tf
-                  sed -i "s/autoreplace_github_token/$GITHUB_TOKEN/g" variables.tf
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
 
-            - name: Terraform init and apply
-              working-directory: ./infra/environments/staging
-              run: |
-                  terraform init -backend-config="access_key=$SPACES_ACCESS_TOKEN" -backend-config="secret_key=$SPACES_SECRET_KEY"
-                  terraform apply -auto-approve
+      - name: Replace tokens in variables.tf
+        working-directory: ./infra/environments/staging
+        run: |
+          sed -i "s/autoreplace_do_token/$DIGITAL_OCEAN_TOKEN/g" variables.tf
+          sed -i "s/autoreplace_github_token/$GITHUB_TOKEN/g" variables.tf
 
-            - name: Deploy to DigitalOcean
-              uses: digitalocean/app_action@v1.1.5
-              with:
-                  app_name: ${{ env.APP_NAME }}
-                  token: ${{ env.DIGITAL_OCEAN_TOKEN }}
+      - name: Terraform init and apply
+        working-directory: ./infra/environments/staging
+        run: |
+          terraform init -backend-config="access_key=$SPACES_ACCESS_TOKEN" -backend-config="secret_key=$SPACES_SECRET_KEY"
+          terraform apply -auto-approve
+
+      - name: Deploy to DigitalOcean
+        uses: digitalocean/app_action@v1.1.5
+        with:
+          app_name: ${{ env.APP_NAME }}
+          token: ${{ env.DIGITAL_OCEAN_TOKEN }}
