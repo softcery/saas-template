@@ -36,7 +36,7 @@ This approach is inspired by the code splitting technique described in the Redux
 1. At the entity level (e.g., `web/src/entities/billing/model/billing-api.ts`), we define a base API:
 
 ```typescript:web/src/entities/billing/model/billing-api.ts
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/dist/query/react'
+import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const billingApi = createApi({
   reducerPath: 'billingApi',
