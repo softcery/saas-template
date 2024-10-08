@@ -54,7 +54,7 @@ export class SupabaseGoogleOAuth2Strategy extends SupabaseBaseOauth2Strategy<IGo
     const authResult: IAuthResult = {
       user: data.user,
       session: data.session,
-      client: this.supabaseClient,
+      authorizedClient: this.supabaseClient,
     };
 
     this.success(authResult);
