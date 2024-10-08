@@ -18,10 +18,17 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "open-api:generate": "npm run build && node dist/src/main --api-client-and-exit",
-    "api-client:generate": "npm run open-api:generate && openapi --useOptions --input ./api.json --output ./.api-client --name ApiClient",
+    "api-client:generate": "npm run open-api:generate && openapi --useOptions --useUnionTypes --input ./api.json --output ./.api-client --name ApiClient",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:generate": "drizzle-kit generate --config=./config/drizzle.config.ts",
-    "db:push": "drizzle-kit migrate --config=./config/drizzle.config.ts"
+    "db:push": "drizzle-kit migrate --config=./config/drizzle.config.ts",
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx}": [
+      "pnpm run lint"
+    ],
+    "**/*.{ts,tsx}": "tsc-files --noEmit"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -33,6 +40,7 @@
     "@nestjs/swagger": "^7.3.1",
     "@supabase/supabase-js": "^2.45.4",
     "@types/oauth": "^0.9.5",
+    "@types/passport-jwt": "^4.0.1",
     "@types/passport-strategy": "^0.2.38",
     "bcrypt": "^5.1.1",
     "builder-pattern": "^2.2.0",
@@ -41,6 +49,7 @@
     "drizzle-orm": "^0.33.0",
     "nest-winston": "^1.9.7",
     "oauth": "^0.10.0",
+    "passport-jwt": "^4.0.1",
     "passport-strategy": "^1.0.0",
     "pg": "^8.13.0",
     "postgres": "^3.4.4",
@@ -67,6 +76,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "jest": "^29.5.0",
+    "lint-staged": "^15.2.10",
     "openapi-typescript-codegen": "^0.29.0",
     "prettier": "^3.0.0",
     "source-map-support": "^0.5.21",
@@ -74,6 +84,7 @@
     "ts-jest": "^29.1.0",
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
+    "tsc-files": "^1.1.4",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.3"
   },

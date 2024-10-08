@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "husky": "^9.1.4"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "pre-commit": "pnpm run --filter api --filter web pre-commit"
+  }
+}

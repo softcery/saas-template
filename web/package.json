@@ -11,7 +11,12 @@
     "check:format": "prettier --write \"./!(node_modules|dist)/**/*.{ts,tsx,js,jsx}\"",
     "check:typescript": "tsc --noEmit -p .",
     "check:eslint": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
-    "check": "npm run check:format && npm run check:typescript && npm run check:eslint"
+    "check": "npm run check:format && npm run check:typescript && npm run check:eslint",
+    "build:digitalocean": "pnpm install --production=false && pnpm run build && rm -rf node_modules && pnpm install --production --frozen-lockfile",
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": "tsc-files --noEmit"
   },
   "dependencies": {
     "@feature-sliced/eslint-config": "^0.1.1",
@@ -21,7 +26,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.2",
     "@reduxjs/toolkit": "^2.2.7",
-    "@shared/api-client": "file:../api/.api-client",
+    "@softcery/sass-template-apiclient": "^0.3.0",
     "@types/compose-function": "^0.0.33",
     "@types/node": "^20.12.7",
     "@types/react": "^18.2.79",
@@ -60,8 +65,10 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "lint-staged": "^15.2.10",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13",
+    "tsc-files": "^1.1.4",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }

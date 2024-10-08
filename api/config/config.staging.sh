@@ -1,0 +1,6 @@
+GOOGLE_OAUTH_CALLBACK_URL=http://localhost:8080/auth/oauth/google-callback
+PASSWORD_RESET_REDIRECT_URL=http://localhost:3000/reset
+CLIENT_AUTH_REDIRECT_URL=http://localhost:3000/sign-in
+PASSWORD_RECOVERY_TIME=900
+BILLING_SUCCESS_REDIRECT_URL=http://localhost:3000/billing
+TRIAL_PERIOD_DURATION_DAYS=14
