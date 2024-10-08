@@ -20,5 +20,5 @@ pnpm run prepare
 
 ## Getting started
 
-[Backend](./api/README.md)
-[Frontend](./web/README.md)
+- [Backend](./api/README.md)
+- [Frontend](./web/README.md)
