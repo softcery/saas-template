@@ -39,7 +39,7 @@ export class CancelSubscriptionUseCase
 
     const subscriptionAction = await this.subscriptionPlanService.createCancelPlanAction(
       paymentCustomer.providerCustomerId,
-      paymentCustomer.subscriptionProviderId,
+      paymentCustomer.paymentPlan.subscriptionProviderId,
     );
 
     return subscriptionAction;

@@ -50,18 +50,20 @@ export abstract class DrizzleRepository<
     const [result] = (await this.db
       .insert(this.tableDefinition.table)
       .values(this.mapper.toPersistence(entity))
-      .returning()) as any[];
+      .returning({ id: this.tableDefinition.table[this.tableDefinition.idKey] })) as any[];
     if (!result) return null;
-    this.mapper.toDomain(result as any);
+
+    return this.findById(result.id);
   }
+
   public async save(entity: TEntity): Promise<TEntity> {
     const [result] = (await this.db
       .insert(this.tableDefinition.table)
       .values(this.mapper.toPersistence(entity))
       .onConflictDoUpdate({ target: [this.tableDefinition.table[this.tableDefinition.idKey]], set: entity })
-      .returning()) as any[];
+      .returning({ id: this.tableDefinition.table[this.tableDefinition.idKey] })) as any[];
     if (!result) return null;
-    this.mapper.toDomain(result as any);
+    return this.findById(result.id);
   }
 
   public async delete(id: Id): Promise<void> {

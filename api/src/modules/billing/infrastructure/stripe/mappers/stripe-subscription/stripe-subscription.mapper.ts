@@ -18,7 +18,13 @@ export class StripeSubscriptionMapper extends StripeBaseMapper {
   };
 
   public toDomain(stripeSubscription: Stripe.Subscription): Subscription {
-    return Subscription.builder(stripeSubscription.id, this.mapStripeStatusToDomain(stripeSubscription.status))
+    const productId = stripeSubscription.items.data.at(0).plan.product.toString();
+
+    return Subscription.builder(
+      stripeSubscription.id,
+      this.mapStripeStatusToDomain(stripeSubscription.status),
+      productId,
+    )
       .planEndsAt(this.parseNullableStripeTimestamp(stripeSubscription.cancel_at))
       .planStartedAt(this.parseNullableStripeTimestamp(stripeSubscription.start_date))
       .subscriptionCanceledAt(this.parseNullableStripeTimestamp(stripeSubscription.canceled_at))

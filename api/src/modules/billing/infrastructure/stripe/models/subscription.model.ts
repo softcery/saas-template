@@ -14,13 +14,14 @@ export enum SubscriptionStatus {
 export class Subscription {
   public providerId: string;
   public status: SubscriptionStatus;
+  public productProviderId: string;
   public trialStartedAt: Date = null;
   public trialEndsAt: Date = null;
   public planStartedAt: Date = null;
   public subscriptionCanceledAt: Date = null;
   public planEndsAt: Date = null;
 
-  public static builder(id: string, status: SubscriptionStatus) {
-    return Builder(Subscription, { providerId: id, status });
+  public static builder(id: string, status: SubscriptionStatus, productProviderId: string) {
+    return Builder(Subscription, { providerId: id, status, productProviderId });
   }
 }

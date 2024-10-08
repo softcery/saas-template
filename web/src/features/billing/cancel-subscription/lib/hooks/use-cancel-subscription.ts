@@ -1,3 +1,4 @@
 import { cancelSubscriptionApi } from '../../model'
 
-export const { useCancelSubscriptionMutation } = cancelSubscriptionApi
+export const { useCancelSubscriptionMutation: useCancelSubscription } =
+  cancelSubscriptionApi
