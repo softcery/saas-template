@@ -1,5 +1,5 @@
 import { PaymentCustomerPlan } from '~modules/billing/domain/entities/payment-customer-subscription.entity';
-import { PaymentCustomerPlanPersistence } from '~shared/infrastructure/database/schema';
+import { PaymentCustomerPlanPersistence } from '~shared/infrastructure/database/drizzle/schema/types';
 
 export class DrizzlePaymentCustomerPlanMapper {
   public static toPersistence(entity: PaymentCustomerPlan): PaymentCustomerPlanPersistence {
