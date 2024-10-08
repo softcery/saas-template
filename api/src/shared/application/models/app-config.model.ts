@@ -1,4 +1,4 @@
-import { IsInt, IsPositive, IsString, IsUrl } from 'class-validator';
+import { IsInt, IsPositive, IsString } from 'class-validator';
 
 export class AppConfigModel {
   @IsString()
@@ -7,7 +7,7 @@ export class AppConfigModel {
   @IsString()
   DB_URL: string;
 
-  @IsUrl()
+  @IsString()
   SUPABASE_URL: string;
 
   @IsString()
