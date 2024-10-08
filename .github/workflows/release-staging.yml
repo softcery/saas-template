@@ -38,14 +38,14 @@ jobs:
           cat << EOF >> ./api/config/config.staging.sh
 
           # Added by GitHub Actions
-          SUPABASE_URL="${{ env.SUPABASE_URL }}"
-          SUPABASE_SECRET_KEY="${{ env.SUPABASE_SECRET_KEY }}"
-          GOOGLE_OAUTH_CLIENT_ID="${{ env.GOOGLE_OAUTH_CLIENT_ID }}"
-          GOOGLE_OAUTH_SECRET="${{ env.GOOGLE_OAUTH_SECRET }}"
-          DB_URL="${{ env.DB_URL }}"
-          STRIPE_API_KEY="${{ env.STRIPE_API_KEY }}"
-          STRIPE_WEBHOOK_SIGNING_SECRET="${{ env.STRIPE_WEBHOOK_SIGNING_SECRET }}"
-          JWT_SECRET="${{ env.JWT_SECRET }}"
+          SUPABASE_URL=${{ env.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY=${{ env.SUPABASE_SECRET_KEY }}
+          GOOGLE_OAUTH_CLIENT_ID=${{ env.GOOGLE_OAUTH_CLIENT_ID }}
+          GOOGLE_OAUTH_SECRET=${{ env.GOOGLE_OAUTH_SECRET }}
+          DB_URL=${{ env.DB_URL }}
+          STRIPE_API_KEY=${{ env.STRIPE_API_KEY }}
+          STRIPE_WEBHOOK_SIGNING_SECRET=${{ env.STRIPE_WEBHOOK_SIGNING_SECRET }}
+          JWT_SECRET=${{ env.JWT_SECRET }}
           EOF
 
       - name: Setup Terraform
