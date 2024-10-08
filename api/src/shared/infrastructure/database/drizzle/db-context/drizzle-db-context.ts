@@ -39,13 +39,13 @@ export class DrizzleDbContext implements IDbContext {
 
   public async commitTransaction(): Promise<void> {
     this._transactionCompletionPromise.resolve();
-    await this._transactionPromise;
+    await Promise.allSettled([this._transactionPromise]);
     this._transaction = null;
     this._transactionPromise = null;
   }
   public async rollbackTransaction(): Promise<void> {
     this._transactionCompletionPromise.reject();
-    await this._transactionPromise;
+    await Promise.allSettled([this._transactionPromise]);
     this._transaction = null;
     this._transactionPromise = null;
   }
