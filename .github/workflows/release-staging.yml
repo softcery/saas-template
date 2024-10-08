@@ -28,6 +28,7 @@ jobs:
       DB_URL: ${{secrets.DB_URL}}
       STRIPE_API_KEY: ${{secrets.STRIPE_API_KEY}}
       STRIPE_WEBHOOK_SIGNING_SECRET: ${{secrets.STRIPE_WEBHOOK_SIGNING_SECRET}}
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
 
     steps:
       - name: Checkout
@@ -44,6 +45,7 @@ jobs:
           DB_URL="${{ env.DB_URL }}"
           STRIPE_API_KEY="${{ env.STRIPE_API_KEY }}"
           STRIPE_WEBHOOK_SIGNING_SECRET="${{ env.STRIPE_WEBHOOK_SIGNING_SECRET }}"
+          JWT_SECRET="${{ env.JWT_SECRET }}"
           EOF
 
       - name: Setup Terraform
