@@ -1,1 +1,1 @@
-export * from './slice'
+export { extendedApi as changeEmailApi } from './slice'

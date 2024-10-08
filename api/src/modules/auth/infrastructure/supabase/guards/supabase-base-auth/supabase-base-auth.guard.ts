@@ -1,7 +1,10 @@
 import { ExecutionContext, Inject, Type, mixin } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
 import { AuthGuard, IAuthGuard } from '@nestjs/passport';
 import { AuthApiError } from '@supabase/supabase-js';
 import { Request } from 'express';
+
+import { AuthMetadataKey } from '~modules/auth/constants';
 
 import { AppException } from 'src/core/exceptions/domain/exceptions/base/app.exception';
 import { CustomException } from 'src/core/exceptions/domain/exceptions/custom-exception/dynamic.exception';
@@ -18,6 +21,7 @@ export const SupabaseBaseAuthGuard = (type?: string | string[]): Type<IAuthGuard
     @Inject(SupabaseSessionMapper) private readonly supabaseSessionMapper: SupabaseSessionMapper;
     @Inject(SupabaseAuthenticatedClientService)
     private readonly supabaseAuthenticatedClientService: SupabaseAuthenticatedClientService;
+    @Inject(Reflector) private readonly reflector: Reflector;
 
     handleRequest<TUser = any>(error: unknown, user: TUser, info: AuthApiError, context: ExecutionContext): TUser {
       if (error && error instanceof AppException) throw error;
@@ -25,6 +29,11 @@ export const SupabaseBaseAuthGuard = (type?: string | string[]): Type<IAuthGuard
       if (info) {
         throw CustomException.builder().httpStatus(info.status).message(info.message).code(info.code).build();
       }
+
+      const isAuthenticateSupabaseClient = this.reflector.getAllAndOverride<boolean>(
+        AuthMetadataKey.AUTHENTICATE_SUPABASE_CLIENT,
+        [context.getHandler(), context.getClass()],
+      );
 
       this.assertIsAuthResult(user);
 
@@ -35,19 +44,21 @@ export const SupabaseBaseAuthGuard = (type?: string | string[]): Type<IAuthGuard
 
       request.session = domainSession;
 
-      request.client = user.client;
-
-      if (user.client) {
-        this.supabaseAuthenticatedClientService.setAuthenticatedClient(user.client);
+      request.client = user.authorizedClient;
+      // client is already authenticated, so we don't waste time authenticating it again
+      if (user.authorizedClient) {
+        this.supabaseAuthenticatedClientService.setAuthenticatedClient(user.authorizedClient);
         return domainUser as TUser;
       }
 
-      if (domainSession) {
+      // authenticate client on demand
+      if (domainSession && isAuthenticateSupabaseClient) {
         return this.supabaseAuthenticatedClientService
           .authenticateWithSession(domainSession)
           .then(() => domainUser) as TUser;
       }
-      if (request.accessToken) {
+
+      if (request.accessToken && isAuthenticateSupabaseClient) {
         return this.supabaseAuthenticatedClientService
           .authenticateWithAccessToken(request.accessToken)
           .then(() => domainUser) as TUser;

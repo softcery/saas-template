@@ -1,4 +1,4 @@
-import { ApiClient } from '@shared/api-client'
+import { ApiClient } from '@softcery/sass-template-apiclient'
 
 import { ProxyHandler } from './proxy-handler'
 import { ProxyOptions } from './types'

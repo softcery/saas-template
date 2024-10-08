@@ -1,7 +1,7 @@
 import { plainToInstance } from 'class-transformer';
 
 import { IPaymentCustomerBase, PaymentCustomer } from '~modules/billing/domain/entities/payment-customer.entity';
-import { PaymentCustomerPersistence } from '~shared/infrastructure/database/schema';
+import { PaymentCustomerPersistence } from '~shared/infrastructure/database/drizzle/schema';
 
 export class DrizzlePaymentCustomerMapper {
   public static toPersistence(entity: PaymentCustomer): PaymentCustomerPersistence {

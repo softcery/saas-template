@@ -1,1 +1,1 @@
-export { getProductsApi } from './slice'
+export { extendedApi as getProductsApi } from './slice'

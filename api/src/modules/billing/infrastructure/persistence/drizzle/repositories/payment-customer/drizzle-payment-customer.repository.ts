@@ -7,8 +7,11 @@ import {
   DrizzleRepository,
   TableDefinition,
 } from '~shared/infrastructure/database/drizzle/repository/drizzle.repository';
-import { MergedDbSchema, PaymentCustomerPersistence } from '~shared/infrastructure/database/schema';
-import { paymentCustomer, paymentCustomerPlan } from '~shared/infrastructure/database/schema/public-database-schema';
+import { MergedDbSchema, PaymentCustomerPersistence } from '~shared/infrastructure/database/drizzle/schema';
+import {
+  paymentCustomer,
+  paymentCustomerPlan,
+} from '~shared/infrastructure/database/drizzle/schema/public-database-schema';
 
 import { DrizzlePaymentCustomerPlanMapper } from '../../mappers/payment-customer/drizzle-payment-customer-plan.mapper';
 import { DrizzlePaymentCustomerMapper } from '../../mappers/payment-customer/drizzle-payment-customer.mapper';

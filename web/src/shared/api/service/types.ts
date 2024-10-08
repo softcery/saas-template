@@ -1,4 +1,4 @@
-import { TokensResultDto as Session } from '@shared/api-client'
+import { TokensResultDto as Session } from '@softcery/sass-template-apiclient'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS'
 

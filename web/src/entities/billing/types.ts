@@ -1,1 +1,5 @@
-export { PaymentCustomerDto as PaymentCustomer } from '@shared/api-client'
+export type {
+  ArrangeSubscriptionDto as ArrangeSubscriptionCommand,
+  SubscriptionActionDto as SubscriptionAction,
+  SubscriptionPlanDto as SubscriptionPlan,
+} from '@softcery/sass-template-apiclient'

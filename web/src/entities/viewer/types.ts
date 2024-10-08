@@ -1,6 +1,6 @@
-import type {} from '@shared/api-client'
+import type {} from '@softcery/sass-template-apiclient'
 
-export type { TokensResultDto as TokensResult } from '@shared/api-client'
+export type { TokensResultDto as TokensResult } from '@softcery/sass-template-apiclient'
 
 export interface ViewerInitialState {
   session?: Session

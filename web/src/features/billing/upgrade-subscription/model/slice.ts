@@ -1,10 +1,8 @@
+import { billingApi } from '~/entities/billing'
+import { SubscriptionAction } from '~/entities/billing/types'
 import { apiService } from '~/shared/api'
-import { SubscriptionAction } from '../types'
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const upgradeSubscriptionApi = createApi({
-  reducerPath: 'upgradeSubscription',
-  baseQuery: fakeBaseQuery(),
+export const extendedApi = billingApi.injectEndpoints({
   endpoints: (build) => ({
     upgradeSubscription: build.mutation<SubscriptionAction, void>({
       queryFn: async () => {

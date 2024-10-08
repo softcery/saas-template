@@ -1,1 +1,1 @@
-export { openPaymentApi } from './slice'
+export { extendedApi as openPaymentApi } from './slice'

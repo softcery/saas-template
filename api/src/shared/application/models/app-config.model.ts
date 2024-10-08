@@ -1,4 +1,4 @@
-import { IsInt, IsPositive, IsString, IsUrl } from 'class-validator';
+import { IsInt, IsPositive, IsString } from 'class-validator';
 
 export class AppConfigModel {
   @IsString()
@@ -7,7 +7,7 @@ export class AppConfigModel {
   @IsString()
   DB_URL: string;
 
-  @IsUrl()
+  @IsString()
   SUPABASE_URL: string;
 
   @IsString()
@@ -23,11 +23,11 @@ export class AppConfigModel {
   GOOGLE_OAUTH_CALLBACK_URL: string;
 
   @IsString()
-  DD_PASSWORD_RESET_REDIRECT_URL: string;
+  PASSWORD_RESET_REDIRECT_URL: string;
 
   @IsInt()
   @IsPositive()
-  DD_PASSWORD_RECOVERY_TIME: number;
+  PASSWORD_RECOVERY_TIME: number;
 
   @IsString()
   STRIPE_API_KEY: string;
@@ -37,11 +37,14 @@ export class AppConfigModel {
 
   @IsInt()
   @IsPositive()
-  DD_TRIAL_PERIOD_DURATION_DAYS: number;
+  TRIAL_PERIOD_DURATION_DAYS: number;
 
   @IsString()
-  DD_STRIPE_WEBHOOK_SIGNING_SECRET: string;
+  STRIPE_WEBHOOK_SIGNING_SECRET: string;
 
   @IsString()
-  DD_CLIENT_AUTH_REDIRECT_URL: string;
+  CLIENT_AUTH_REDIRECT_URL: string;
+
+  @IsString()
+  JWT_SECRET: string;
 }

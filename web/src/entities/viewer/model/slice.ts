@@ -14,7 +14,7 @@ export function parseAccessToken(token: string): Session {
   return JSON.parse(atob(token.split('.')[1]))
 }
 
-export const slice = createSlice({
+export const viewerSlice = createSlice({
   name: 'viewer',
   initialState: getViewerInitialState,
   reducers: {
@@ -48,4 +48,4 @@ function getViewerInitialState(): ViewerInitialState {
   }
 }
 
-export const { reset, setTokens, updateSession } = slice.actions
+export const { reset, setTokens, updateSession } = viewerSlice.actions

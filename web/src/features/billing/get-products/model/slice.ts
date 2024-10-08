@@ -1,12 +1,9 @@
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
+import { billingApi } from '~/entities/billing'
 import { apiService } from '~/shared/api'
 import { SubscriptionPlan, SubscriptionPlanWithPermissions } from '../types'
 import { getSubscriptionPlanWithPermissions } from '~/entities/billing'
 
-export const getProductsApi = createApi({
-  reducerPath: 'getProducts',
-  baseQuery: fakeBaseQuery(),
-  tagTypes: ['products'],
+export const extendedApi = billingApi.injectEndpoints({
   endpoints: (build) => ({
     getProducts: build.query<SubscriptionPlan[], void>({
       queryFn: async () => {

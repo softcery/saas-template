@@ -48,7 +48,7 @@ export abstract class OAuth2Strategy<Params extends object, Profile extends obje
       }
     }
 
-    let callbackURL = this._options.callbackURL;
+    const callbackURL = this._options.callbackURL;
 
     if (req.query?.code || req.body?.code) {
       try {
@@ -57,7 +57,7 @@ export abstract class OAuth2Strategy<Params extends object, Profile extends obje
         params.grant_type = 'authorization_code';
         if (callbackURL) params.redirect_uri = callbackURL;
 
-        const { accessToken, refreshToken, params: tokenParams } = await this.getOAuthAccessToken(code, params);
+        const { accessToken, params: tokenParams } = await this.getOAuthAccessToken(code, params);
         const profile = await this.loadUserProfile(accessToken);
 
         await this.verify(tokenParams, profile);
@@ -82,16 +82,19 @@ export abstract class OAuth2Strategy<Params extends object, Profile extends obje
   }
 
   // Retrieve user profile from the service provider
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async userProfile(accessToken: string): Promise<Profile | null> {
     return null;
   }
 
   // Return extra parameters to be included in the authorization request
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected authorizationParams(options: Record<string, any> = {}): Record<string, any> {
     return {};
   }
 
   // Return extra parameters to be included in the token request
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected tokenParams(options: Record<string, any> = {}): Record<string, any> {
     return {};
   }

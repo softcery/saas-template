@@ -6,7 +6,7 @@ import { BaseToken } from '~shared/constants';
 import { DrizzlePostgresModule } from 'src/lib/drizzle-postgres';
 
 import { DrizzleDbContext } from './drizzle/db-context/drizzle-db-context';
-import { mergeDbdSchema } from './schema/merged-schema';
+import { mergeDbdSchema } from './drizzle/schema/merged-schema';
 
 @Global()
 @Module({

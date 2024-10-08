@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { updateTokenRefreshedCallback } from '~/shared/api'
 import { useAppDispatch } from '~/shared/lib/hooks'
 
-import { viewerSlice } from '../../model'
+import { viewer } from '../../model'
 
 export const useUpdateSessionOnTokenRefresh = () => {
   const dispatch = useAppDispatch()
@@ -11,7 +11,7 @@ export const useUpdateSessionOnTokenRefresh = () => {
   useEffect(() => {
     updateTokenRefreshedCallback((tokens) =>
       dispatch(
-        viewerSlice.setTokens({
+        viewer.setTokens({
           accessToken: tokens.accessToken,
           refreshToken: tokens.refreshToken,
         }),

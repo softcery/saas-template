@@ -18,4 +18,5 @@ export enum AuthDiToken {
 
 export enum AuthMetadataKey {
   IS_PUBLIC_METADATA = 'IS_PUBLIC_METADATA',
+  AUTHENTICATE_SUPABASE_CLIENT = 'AUTHENTICATE_SUPABASE_CLIENT',
 }

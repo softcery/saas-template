@@ -1,10 +1,8 @@
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
+import { authApi } from '~/entities/viewer'
 import { apiService } from '~/shared/api'
 import { UpdateUserEmailPayload } from '../types'
 
-export const changeEmailApi = createApi({
-  reducerPath: 'changeEmailApi',
-  baseQuery: fakeBaseQuery(),
+export const extendedApi = authApi.injectEndpoints({
   endpoints: (build) => ({
     changeEmail: build.mutation<void, UpdateUserEmailPayload>({
       queryFn: async (payload: UpdateUserEmailPayload) => {

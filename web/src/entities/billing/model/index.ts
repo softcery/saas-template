@@ -17,3 +17,4 @@ export const getSubscriptionPlanWithPermissions = (
     canSubscribe: !customer.subscriptionProductId,
   }
 }
+export { billingApi } from './billing-api'
