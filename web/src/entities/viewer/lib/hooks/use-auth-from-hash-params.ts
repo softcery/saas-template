@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { viewerSlice, isValidSessionParams } from '~/entities/viewer'
+import { viewer, isValidSessionParams } from '~/entities/viewer'
 import { useAppDispatch, useHashParams } from '~/shared/lib/hooks'
 
 export const useAuthFromHashParams = () => {
@@ -13,7 +13,7 @@ export const useAuthFromHashParams = () => {
     if (hashParams.token_type !== 'bearer') return
 
     dispatch(
-      viewerSlice.updateSession({
+      viewer.updateSession({
         accessToken: hashParams.access_token,
         refreshToken: hashParams.refresh_token,
       }),

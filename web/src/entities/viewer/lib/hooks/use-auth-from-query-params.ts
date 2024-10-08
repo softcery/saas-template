@@ -1,7 +1,7 @@
 import { useAppDispatch } from '~/shared/lib/hooks'
 import { useQueryParams } from '~/shared/lib/hooks/use-query-params'
 import { isValidSessionParams } from '../is-valid-session-params'
-import { viewerSlice } from '../../model'
+import { viewer } from '../../model'
 import { useEffect } from 'react'
 
 export const useAuthFromHashParams = () => {
@@ -14,7 +14,7 @@ export const useAuthFromHashParams = () => {
     if (params.token_type.toLowerCase() !== 'bearer') return
 
     dispatch(
-      viewerSlice.setTokens({
+      viewer.setTokens({
         accessToken: params.access_token,
         refreshToken: params.refresh_token,
       }),

@@ -1,1 +1,1 @@
-export { cancelSubscriptionApi } from './slice'
+export { extendedApi as cancelSubscriptionApi } from './slice'

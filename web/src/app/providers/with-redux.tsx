@@ -1,17 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 import React from 'react'
 import { Provider } from 'react-redux'
+import { billingApi } from '~/entities/billing'
 
-import { viewerSlice } from '~/entities/viewer'
-import { sendPasswordResetConfirmationApi } from '~/features/auth/send-password-reset-confirmation'
-import { signInWithEmailPasswordApi } from '~/features/auth/sign-in-with-email-password'
-import { signUpWithEmailPasswordApi } from '~/features/auth/sign-up-with-email-password'
-import { changeEmailApi } from '~/features/auth/update-email'
-import { updatePasswordApi } from '~/features/auth/update-password'
-import { cancelSubscriptionApi } from '~/features/billing/cancel-subscription'
-import { getProductsApi } from '~/features/billing/get-products'
-import { openPaymentApi } from '~/features/billing/open-payment'
-import { upgradeSubscriptionApi } from '~/features/billing/upgrade-subscription'
+import { authApi, viewer } from '~/entities/viewer'
 import { toastNotificationsSlice } from '~/widgets/toast-notifications'
 
 export const withRedux = (Component: React.ComponentType) => () => {
@@ -24,30 +16,13 @@ export const withRedux = (Component: React.ComponentType) => () => {
 
 const store = configureStore({
   reducer: {
-    viewer: viewerSlice.reducer,
+    viewer: viewer.reducer,
     toastNotifications: toastNotificationsSlice.reducer,
-    [signInWithEmailPasswordApi.reducerPath]: signInWithEmailPasswordApi.reducer,
-    [signUpWithEmailPasswordApi.reducerPath]: signUpWithEmailPasswordApi.reducer,
-    [changeEmailApi.reducerPath]: changeEmailApi.reducer,
-    [updatePasswordApi.reducerPath]: updatePasswordApi.reducer,
-    [sendPasswordResetConfirmationApi.reducerPath]:
-      sendPasswordResetConfirmationApi.reducer,
-    [getProductsApi.reducerPath]: getProductsApi.reducer,
-    [cancelSubscriptionApi.reducerPath]: cancelSubscriptionApi.reducer,
-    [openPaymentApi.reducerPath]: openPaymentApi.reducer,
-    [upgradeSubscriptionApi.reducerPath]: upgradeSubscriptionApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
+    [billingApi.reducerPath]: billingApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(signInWithEmailPasswordApi.middleware)
-      .concat(signUpWithEmailPasswordApi.middleware)
-      .concat(changeEmailApi.middleware)
-      .concat(updatePasswordApi.middleware)
-      .concat(sendPasswordResetConfirmationApi.middleware)
-      .concat(getProductsApi.middleware)
-      .concat(openPaymentApi.middleware)
-      .concat(cancelSubscriptionApi.middleware)
-      .concat(upgradeSubscriptionApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware).concat(billingApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

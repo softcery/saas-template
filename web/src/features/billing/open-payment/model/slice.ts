@@ -1,10 +1,8 @@
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
+import { billingApi } from '~/entities/billing'
+import { ArrangeSubscriptionCommand, SubscriptionAction } from '~/entities/billing/types'
 import { apiService } from '~/shared/api'
-import { ArrangeSubscriptionCommand, SubscriptionAction } from '../types'
 
-export const openPaymentApi = createApi({
-  reducerPath: 'openPayment',
-  baseQuery: fakeBaseQuery(),
+export const extendedApi = billingApi.injectEndpoints({
   endpoints: (build) => ({
     openPayment: build.mutation<SubscriptionAction, ArrangeSubscriptionCommand>({
       queryFn: async (arrangeSubscriptionCommand) => {
