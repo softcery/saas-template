@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useNavigateAuthenticated } from '~/entities/viewer'
 import { SignInForm } from '~/features/auth/sign-in-with-email-password'
 import { SignInWithGoogleButton } from '~/features/auth/sign-in-with-google'

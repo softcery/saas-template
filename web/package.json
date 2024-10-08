@@ -26,7 +26,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.2",
     "@reduxjs/toolkit": "^2.2.7",
-    "@softcery/sass-template-apiclient": "^0.3.0",
+    "@softcery/sass-template-apiclient": "^0.9.0",
     "@types/compose-function": "^0.0.33",
     "@types/node": "^20.12.7",
     "@types/react": "^18.2.79",

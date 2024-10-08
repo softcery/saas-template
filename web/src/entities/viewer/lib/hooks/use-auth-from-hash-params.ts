@@ -13,7 +13,7 @@ export const useAuthFromHashParams = () => {
     if (hashParams.token_type !== 'bearer') return
 
     dispatch(
-      viewer.updateSession({
+      viewer.setTokens({
         accessToken: hashParams.access_token,
         refreshToken: hashParams.refresh_token,
       }),
