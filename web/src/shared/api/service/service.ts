@@ -45,13 +45,18 @@ class ApiWithRefreshManager implements Api {
         session.accessToken,
       )
 
+      if (repeatedRequestResponse.status === 401) {
+        this.authenticationErrorCallback?.()
+        throw new Error('Repeated request unauthorize')
+      }
+
       if (!repeatedRequestResponse.ok) {
-        throw new Error('Request failed')
+        throw new Error('Repeated request failed')
       }
 
       return await repeatedRequestResponse.json()
     } catch (e) {
-      this.authenticationErrorCallback?.()
+      console.log('error', e)
       return this.createErrorResponsePromise(response)
     }
   }
