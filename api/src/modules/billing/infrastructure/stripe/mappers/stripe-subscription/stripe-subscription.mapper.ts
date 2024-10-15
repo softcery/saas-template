@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import Stripe from 'stripe';
 
-import { Subscription, SubscriptionStatus } from '../../models/subscription.model';
+import { Subscription, SubscriptionStatus } from '../../../models/subscription.model';
 import { StripeBaseMapper } from '../stripe-base-mapper/stripe-base.mapper';
 
 @Injectable()

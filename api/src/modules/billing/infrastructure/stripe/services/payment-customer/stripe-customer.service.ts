@@ -5,8 +5,8 @@ import {
   IPaymentCustomerCreationOptions,
   IPaymentCustomerService,
 } from '../../../../application/services/payment-customer-service.interface';
+import { Customer } from '../../../models/customer.model';
 import { StripeCustomerMapper } from '../../mappers/stripe-customer/stripe-customer.mapper';
-import { Customer } from '../../models/customer.model';
 import { StripeClientService } from '../stripe-client-service/stripe-client.service';
 
 @Injectable()

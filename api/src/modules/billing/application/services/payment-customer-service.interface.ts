@@ -1,4 +1,4 @@
-import { Customer } from '../../infrastructure/stripe/models/customer.model';
+import { Customer } from '../../infrastructure/models/customer.model';
 
 export interface IPaymentCustomerCreationOptions {
   name?: string;

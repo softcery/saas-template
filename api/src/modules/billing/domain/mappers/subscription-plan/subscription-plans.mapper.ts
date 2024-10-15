@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 
 import { SubscriptionPlanDto } from '~modules/billing/application/dto/subscription-plan.dto';
-import { SubscriptionPlan } from '~modules/billing/infrastructure/stripe/models/subscription-plan.model';
+import { SubscriptionPlan } from '~modules/billing/infrastructure/models/subscription-plan.model';
 
 @Injectable()
 export class SubscriptionPlansMapper {

@@ -1,5 +1,5 @@
 import { PaymentCustomer } from '~modules/billing/domain/entities/payment-customer.entity';
-import { Subscription } from '~modules/billing/infrastructure/stripe/models/subscription.model';
+import { Subscription } from '~modules/billing/infrastructure/models/subscription.model';
 import { IUseCase } from '~shared/application/use-cases/use-case.interface';
 
 export interface IUpdatePaymentCustomerSubscriptionPayload {

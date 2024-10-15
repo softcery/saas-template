@@ -3,7 +3,7 @@ import { Transform } from 'class-transformer';
 import { IsBoolean, IsDate } from 'class-validator';
 import Stripe from 'stripe';
 
-import { Customer } from '../../models/customer.model';
+import { Customer } from '../../../models/customer.model';
 import { StripeBaseMapper } from '../stripe-base-mapper/stripe-base.mapper';
 import { StripeSubscriptionMapper } from '../stripe-subscription/stripe-subscription.mapper';
 

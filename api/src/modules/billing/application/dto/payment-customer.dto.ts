@@ -1,4 +1,4 @@
-import { SubscriptionStatus } from '~modules/billing/infrastructure/stripe/models/subscription.model';
+import { SubscriptionStatus } from '~modules/billing/infrastructure/models/subscription.model';
 
 export class PaymentCustomerDto {
   public name: string | null = null;

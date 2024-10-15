@@ -1,7 +1,6 @@
-import { SubscriptionPlan } from '~modules/billing/infrastructure/stripe/models/subscription-plan.model';
-
-import { PaymentActionModel } from '../../infrastructure/stripe/models/payment-action.model';
-import { PaymentPlanOptions } from '../../infrastructure/stripe/models/payment-plan-options.model';
+import { PaymentActionModel } from '../../infrastructure/models/payment-action.model';
+import { PaymentPlanOptions } from '../../infrastructure/models/payment-plan-options.model';
+import { SubscriptionPlan } from '../../infrastructure/models/subscription-plan.model';
 
 export interface ISubscriptionPlanService {
   listPlans(): Promise<SubscriptionPlan[]>;

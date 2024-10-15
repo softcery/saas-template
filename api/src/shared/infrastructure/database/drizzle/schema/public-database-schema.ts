@@ -1,7 +1,7 @@
 import { relations } from 'drizzle-orm';
 import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
-import { SubscriptionStatus } from '~modules/billing/infrastructure/stripe/models/subscription.model';
+import { SubscriptionStatus } from '~modules/billing/infrastructure/models/subscription.model';
 
 export const paymentCustomer = pgTable('payment_customers', {
   id: uuid('id').primaryKey().defaultRandom(),

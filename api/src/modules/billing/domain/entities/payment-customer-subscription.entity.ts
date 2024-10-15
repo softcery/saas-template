@@ -1,6 +1,6 @@
 import { Builder } from 'builder-pattern';
 
-import { SubscriptionStatus } from '~modules/billing/infrastructure/stripe/models/subscription.model';
+import { SubscriptionStatus } from '~modules/billing/infrastructure/models/subscription.model';
 import { Entity } from '~shared/domain/entities/entity';
 
 export class PaymentCustomerPlan extends Entity<string> {

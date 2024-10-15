@@ -4,7 +4,7 @@ import Stripe from 'stripe';
 
 import { PlanQuota } from '~modules/billing/domain/value-objects/plan-quota.value';
 
-import { SubscriptionProduct } from '../../models/subscription-product.model';
+import { SubscriptionProduct } from '../../../models/subscription-product.model';
 import { StripeBaseMapper } from '../stripe-base-mapper/stripe-base.mapper';
 
 class StripeQuotaPersistance {

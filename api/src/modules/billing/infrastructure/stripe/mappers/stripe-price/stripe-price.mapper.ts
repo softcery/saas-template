@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import Stripe from 'stripe';
 
-import { SubscriptionPrice } from '../../models/subscription-price.model';
+import { SubscriptionPrice } from '../../../models/subscription-price.model';
 
 @Injectable()
 export class StripePriceMapper {

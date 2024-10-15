@@ -1,10 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 
+import { PaymentPlanOptions, TrialOptions } from '~modules/billing/infrastructure/models/payment-plan-options.model';
 import { BillingDiToken } from '~modules/billing/infrastructure/stripe/constants';
-import {
-  PaymentPlanOptions,
-  TrialOptions,
-} from '~modules/billing/infrastructure/stripe/models/payment-plan-options.model';
 import { Command } from '~shared/application/CQS/command.abstract';
 import { IAppConfigService } from '~shared/application/services/app-config-service.interface';
 import { IDbContext } from '~shared/application/services/db-context.interface';

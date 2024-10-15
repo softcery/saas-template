@@ -1,6 +1,6 @@
 import { plainToInstance } from 'class-transformer';
 
-import { Subscription, SubscriptionStatus } from '~modules/billing/infrastructure/stripe/models/subscription.model';
+import { Subscription, SubscriptionStatus } from '~modules/billing/infrastructure/models/subscription.model';
 import { Entity } from '~shared/domain/entities/entity';
 
 import { PaymentCustomerPlan } from './payment-customer-subscription.entity';
